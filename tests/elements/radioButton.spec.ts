@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
 import { test } from "../../fixtures/ElementsFixtures";
 
-test.describe('Radio Button Page Tests', () => {
+test.describe('Elements - Radio Button page', () => {
   test('Positive: Select "Yes" radio button', async ({ radioButtonPage }) => {
     await radioButtonPage.selectYes();
     expect(await radioButtonPage.isYesSelected()).toBe(true);

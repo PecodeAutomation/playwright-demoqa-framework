@@ -20,17 +20,17 @@ export class TextBoxPage {
     this.page = page;
     this.nameValue = page.locator("#name");
     this.emailValue = page.locator("#email");
-    this.currentAddressValue = page.locator("#currentAddress");
-    this.permanentAddressValue = page.locator("#permanentAddress");
+    this.currentAddressValue = page.locator("#currentAddress").last();
+    this.permanentAddressValue = page.locator("#permanentAddress").last();
     this.formComponent = new FormComponent(page);
   }
 
-  async verifyData(
-    data: TextBoxFormData
-  ) {
+  async verifyData(data: TextBoxFormData) {
     await expect(this.nameValue).toContainText(data.fullName);
     await expect(this.emailValue).toContainText(data.email);
     await expect(this.currentAddressValue).toContainText(data.currentAddress);
-    await expect(this.permanentAddressValue).toContainText(data.permanentAddress);
+    await expect(this.permanentAddressValue).toContainText(
+      data.permanentAddress
+    );
   }
 }

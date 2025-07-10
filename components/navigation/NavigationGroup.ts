@@ -7,17 +7,14 @@ export abstract class NavigationGroup {
   ) {}
 
   async expand() {
-    await this.page
-      .locator(`.card-body:has-text("${this.groupName}")`)
-      .click();
+    await this.page.locator(`.card-body:has-text("${this.groupName}")`).click();
   }
 
   async navigateTo(elementName: string) {
-    await this.expand();
-    await this.page
-      .locator(
-        `.element-group:has-text("${this.groupName}") .menu-list li:has-text("${elementName}")`
-      )
-      .click();
-  }
+  await this.expand();
+  await this.page
+    .getByRole('listitem')
+    .filter({ hasText: new RegExp(`^${elementName}$`) })
+    .click();
+}
 }

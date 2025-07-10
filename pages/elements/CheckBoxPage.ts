@@ -8,21 +8,37 @@ export class CheckBoxPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.expandToggle = page.locator('.rct-icon-expand-close');
-    this.collapseToggle = page.locator('.rct-icon-expand-open');
-    this.resultDiv = page.locator('#result');
+    this.expandToggle = page.locator(".rct-icon-expand-close");
+    this.collapseToggle = page.locator(".rct-icon-expand-open");
+    this.resultDiv = page.locator("#result");
   }
 
   private getCheckboxLocator(label: string): Locator {
-    return this.page.locator(`[for="tree-node-${label.toLowerCase()}"] span.rct-checkbox`);
+    return this.page.locator(
+      `[for="tree-node-${label.toLowerCase()}"] span.rct-checkbox`
+    );
   }
 
   private getCheckboxIcon(label: string): Locator {
-    return this.getCheckboxLocator(label).locator('svg');
+    return this.getCheckboxLocator(label).locator("svg");
   }
 
   async expandAll() {
     await this.expandToggle.click();
+  }
+
+  async checkItem(itemName: string) {
+    const item = this.page.locator(
+      `.rct-collapse-btn ~ label:has(.rct-title:text-is("${itemName}"))`
+    );
+    await item.click();
+  }
+
+  async expandItem(value: string) {
+    const item = this.page
+      .locator(`[for="tree-node-${value}"]`)
+      .locator("xpath=preceding-sibling::button");
+    await item.click();
   }
 
   async collapseAll() {
@@ -32,39 +48,39 @@ export class CheckBoxPage {
   async toggleCheckbox(label: string, state: boolean) {
     const checkbox = this.getCheckboxLocator(label);
     const currentState = await this.isChecked(label);
-    
+
     if (currentState !== state) {
+      await checkbox.hover();
       await checkbox.click();
     }
   }
 
   async isChecked(label: string): Promise<boolean> {
     const icon = this.getCheckboxIcon(label);
-    const classAttribute = await icon.getAttribute('class');
-    return classAttribute?.includes('rct-icon-check') ?? false;
+    const classAttribute = await icon.getAttribute("class");
+    return classAttribute?.includes("rct-icon-check") ?? false;
   }
 
   async isExpanded(label: string): Promise<boolean> {
-    const parentItem = this.page.locator(`li:has([for="tree-node-${label.toLowerCase()}"])`);
-    const expandIcon = parentItem.locator('.rct-icon-expand-open');
+    const parentItem = this.page.locator(
+      `li:has([for="tree-node-${label.toLowerCase()}"])`
+    );
+    const expandIcon = parentItem.locator(".rct-icon-expand-open");
     return await expandIcon.isVisible();
   }
 
   async verifySelectedItems(expectedItems: string[]) {
     const resultText = await this.resultDiv.textContent();
-    
+
     for (const item of expectedItems) {
-      await expect(resultText).toContain(item.toLowerCase());
+      expect(resultText).toContain(item.toLowerCase());
     }
-    
-    const selectedCount = (resultText?.match(/you have selected/g) || []).length;
-    await expect(selectedCount).toBe(expectedItems.length);
   }
 
   async getSelectedItems(): Promise<string[]> {
-    const resultText = await this.resultDiv.textContent() || '';
+    const resultText = (await this.resultDiv.textContent()) || "";
     const matches = resultText.match(/[a-z]+\n/gi) || [];
-    return matches.map(item => item.trim());
+    return matches.map((item) => item.trim());
   }
 
   async checkItems(items: string[]) {

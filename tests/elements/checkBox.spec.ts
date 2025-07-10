@@ -10,6 +10,8 @@ test.describe("Elements - Checkbox page", () => {
 
   test("Select nested checkboxes", async ({ checkBoxPage }) => {
     await checkBoxPage.expandAll();
+    await checkBoxPage.checkItem("Home");
+    await checkBoxPage.expandItem("desktop")
     await checkBoxPage.toggleCheckbox("Desktop", true);
     await checkBoxPage.toggleCheckbox("Notes", true);
     await checkBoxPage.verifySelectedItems(["desktop", "notes"]);

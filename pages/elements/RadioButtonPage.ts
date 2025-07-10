@@ -10,10 +10,10 @@ export class RadioButtonPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.yesRadio = page.locator("#yesRadio");
-    this.impressiveRadio = page.locator("#impressiveRadio");
-    this.noRadio = page.locator("#noRadio");
-    this.resultText = page.locator(".text-success");
+    this.yesRadio = page.locator("#yesRadio ~ label");
+    this.impressiveRadio = page.locator("#impressiveRadio ~ label");
+    this.noRadio = page.locator("#noRadio ~ label");
+    this.resultText = page.locator("p:has(> .text-success)");
     this.questionText = page.locator(".mb-3");
   }
 
