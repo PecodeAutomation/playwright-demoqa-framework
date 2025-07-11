@@ -4,14 +4,14 @@ Automation testing framework for DemoQA website using Playwright and TypeScript.
 
 ## Project Structure
 playwright-demoqa-framework/
-├── .github/workflows/ # GitHub Actions CI/CD
-├── components/ # Basic reusable components
-├── fixtures/ # Test data and fixtures
-├── pages/ # Page Objects
-├── services/ # Business logic services
-├── tests/ # Test files
-├── types/ # TypeScript types
-└── utils/ # Utility functions
+- .github/workflows/ # GitHub Actions CI/CD
+- components/ # Basic reusable components
+- fixtures/ # Test data and fixtures
+- pages/ # Page Objects
+- services/ # Business logic services
+- tests/ # Test files
+- types/ # TypeScript types
+- utils/ # Utility functions
 
 text
 
