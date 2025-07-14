@@ -1,11 +1,11 @@
 import { expect } from "@playwright/test";
 import { test } from "../../fixtures/ElementsFixtures";
 import { UserDataFactory } from "../../fixtures/UserDataFactory";
-import { WebTablesFormData } from "../../pages/elements/WebTablesPage";
+import { WebTablesFormUser } from "../../types/interfaces/user";
 
 
 test.describe('Elements - Web Tables page', () => {
-  let testData: WebTablesFormData;
+  let testData: WebTablesFormUser;
   
   test.beforeEach(async ({}) => {
     const user = UserDataFactory.getRandomUser();
@@ -32,7 +32,7 @@ test.describe('Elements - Web Tables page', () => {
   test('Positive: Edit existing record', async ({ webTablesPage }) => {
     await webTablesPage.addNewRecord(testData);
     
-    const updatedData: WebTablesFormData = {
+    const updatedData: WebTablesFormUser = {
       ...testData,
       salary: '60000',
       department: 'Engineering'
@@ -55,7 +55,7 @@ test.describe('Elements - Web Tables page', () => {
   test('Positive: Search for records', async ({ webTablesPage }) => {
     await webTablesPage.addNewRecord(testData);
     const uniqueName = `Search_${Date.now()}`;
-    const searchableData: WebTablesFormData = {
+    const searchableData: WebTablesFormUser = {
       ...testData,
       firstName: uniqueName
     };
@@ -68,7 +68,7 @@ test.describe('Elements - Web Tables page', () => {
   });
 
   test('Negative: Add record with invalid email', async ({ webTablesPage }) => {
-    const invalidData: WebTablesFormData = {
+    const invalidData: WebTablesFormUser = {
       ...testData,
       email: 'invalid-email'
     };
@@ -79,7 +79,7 @@ test.describe('Elements - Web Tables page', () => {
 
   //XXX: Skipped due to test update 
   test.skip('Boundary: Maximum field lengths', async ({ webTablesPage }) => {
-    const boundaryData: WebTablesFormData = {
+    const boundaryData: WebTablesFormUser = {
       firstName: 'A'.repeat(100),
       lastName: 'B'.repeat(100),
       email: `${'C'.repeat(50)}@test.com`,

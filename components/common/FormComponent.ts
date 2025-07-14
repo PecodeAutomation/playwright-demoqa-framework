@@ -14,6 +14,14 @@ export class FormComponent extends BasePage {
   private emailInput: Locator;
   private currentAddressField: Locator;
   private permanentAddressField: Locator;
+  private genderRadio: Locator;
+  private mobileInput: Locator;
+  private dateOfBirthInput: Locator;
+  private subjectsInput: Locator;
+  private hobbiesCheckbox: Locator;
+  private pictureUpload: Locator;
+  private stateDropdown: Locator;
+  private cityDropdown: Locator;
   private submitButton: Locator;
 
   constructor(page: Page) {
@@ -30,6 +38,14 @@ export class FormComponent extends BasePage {
     this.emailInput = page.getByPlaceholder("name@example.com");
     this.currentAddressField = page.getByPlaceholder("Current Address");
     this.permanentAddressField = page.locator("#permanentAddress");
+    this.genderRadio = page.locator(".custom-radio");
+    this.mobileInput = page.locator("#userNumber");
+    this.dateOfBirthInput = page.locator("#dateOfBirthInput");
+    this.subjectsInput = page.locator("#subjectsInput");
+    this.hobbiesCheckbox = page.locator(".custom-checkbox");
+    this.pictureUpload = page.locator("#uploadPicture");
+    this.stateDropdown = page.locator("#state");
+    this.cityDropdown = page.locator("#city");
     this.submitButton = page.locator("#submit");
   }
 
@@ -85,12 +101,53 @@ export class FormComponent extends BasePage {
     await this.permanentAddressField.fill(value);
   }
 
+  async selectGender(gender: string) {
+    await this.page.getByText(gender, { exact: true }).click();
+  }
+
+  async fillMobileNumber(phone: string) {
+    await this.mobileInput.fill(phone);
+  }
+
+  async setDateOfBirth(dateString: string) {
+    await this.dateOfBirthInput.fill(dateString);
+    await this.page.keyboard.press('Enter');
+  }
+
+  async selectSubjects(subjects: string[]) {
+    for (const subject of subjects) {
+      await this.subjectsInput.fill(subject);
+      await this.page.keyboard.press("Enter");
+    }
+  }
+
+  async selectHobbies(hobbies: string[]) {
+    for (const hobby of hobbies) {
+      await this.page.locator(`text=${hobby}`).click();
+    }
+  }
+
+  async uploadPicture(filePath: string) {
+    await this.pictureUpload.setInputFiles(filePath);
+  }
+
+  async selectState(state: string) {
+    await this.stateDropdown.click();
+    await this.page.getByText(state, { exact: true }).click();
+  }
+
+  async selectCity(city: string) {
+    await this.cityDropdown.click();
+    await this.page.getByText(city, { exact: true }).click();
+  }
+
   async clickSubmit() {
+    expect(this.submitButton).not.toBeDisabled();
     await this.submitButton.click();
   }
 
   async verifyEmailError() {
-    await expect(this.emailInput).toHaveJSProperty("validity.valid", false)
+    await expect(this.emailInput).toHaveJSProperty("validity.valid", false);
   }
 
   async expectEmailErrorVisible() {
