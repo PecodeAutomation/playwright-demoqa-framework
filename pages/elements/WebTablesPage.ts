@@ -1,11 +1,11 @@
 import { Page, Locator, expect } from "@playwright/test";
 import { FormComponent } from "../../components/common/FormComponent";
 import { WebTablesFormUser } from "../../types/interfaces/user";
+import { BasePage } from "../BasePage";
 
 export interface PartialWebTablesFormData extends Partial<WebTablesFormUser> {}
 
-export class WebTablesPage {
-  private readonly page: Page;
+export class WebTablesPage extends BasePage {
   private readonly addButton: Locator;
   private readonly searchBox: Locator;
   private readonly searchButton: Locator;
@@ -13,7 +13,7 @@ export class WebTablesPage {
   public formComponent: FormComponent;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.addButton = page.locator("#addNewRecordButton");
     this.searchBox = page.locator("#searchBox");
     this.searchButton = page.locator("#basic-addon2");

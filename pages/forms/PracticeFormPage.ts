@@ -1,9 +1,8 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { FormComponent } from "../../components/common/FormComponent";
-import { PracticeFormUser } from "../../types/interfaces/user";
+import { BasePage } from "../BasePage";
 
-export class PracticeFormPage {
-  private readonly page: Page;
+export class PracticeFormPage extends BasePage {
   private readonly tableFirstAndLastName: Locator;
   private readonly tableEmail: Locator;
   private readonly tableGender: Locator;
@@ -17,7 +16,7 @@ export class PracticeFormPage {
   public formComponent: FormComponent;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.tableFirstAndLastName = page.locator(
       `td:has-text('Student Name') + td`
     );

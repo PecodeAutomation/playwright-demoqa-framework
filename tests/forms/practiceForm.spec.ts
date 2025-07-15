@@ -1,8 +1,9 @@
 import dayjs from "dayjs";
 import { test } from "../../fixtures/FormsFixtures";
 import { UserDataFactory } from "../../fixtures/UserDataFactory";
+import { FILES } from "../../constants/common";
 
-test.describe("Practice Form Tests", () => {
+test.describe("Forms - Practice Form page", () => {
   test("Submit minimal valid form", async ({ practiceFormPage }) => {
     const testUser = UserDataFactory.getMinimalPracticeFormUser();
 
@@ -13,14 +14,17 @@ test.describe("Practice Form Tests", () => {
 
     await practiceFormPage.formComponent.clickSubmit();
 
-    await practiceFormPage.verifyFirstLastName(testUser.firstName, testUser.lastName);
+    await practiceFormPage.verifyFirstLastName(
+      testUser.firstName,
+      testUser.lastName
+    );
     await practiceFormPage.verifyGender(testUser.gender);
     await practiceFormPage.verifyMobileNumber(testUser.mobile);
   });
 
   test("Submit full form with all fields", async ({ practiceFormPage }) => {
     const testUser = UserDataFactory.getRandomPracticeFormUser();
-    const dateOfBirth = dayjs().subtract(18, 'year').format('DD MMMM, YYYY');
+    const dateOfBirth = dayjs().subtract(18, "year").format("DD MMMM, YYYY");
 
     await practiceFormPage.formComponent.fillFirstName(testUser.firstName);
     await practiceFormPage.formComponent.fillLastName(testUser.lastName);
@@ -36,14 +40,19 @@ test.describe("Practice Form Tests", () => {
 
     await practiceFormPage.formComponent.clickSubmit();
 
-    await practiceFormPage.verifyFirstLastName(testUser.firstName, testUser.lastName);
+    await practiceFormPage.verifyFirstLastName(
+      testUser.firstName,
+      testUser.lastName
+    );
     await practiceFormPage.verifyEmail(testUser.email);
     await practiceFormPage.verifyGender(testUser.gender);
     await practiceFormPage.verifyMobileNumber(testUser.mobile);
-    await practiceFormPage.verifyBirthDate(dayjs(dateOfBirth).format('DD MMMM,YYYY'));
+    await practiceFormPage.verifyBirthDate(
+      dayjs(dateOfBirth).format("DD MMMM,YYYY")
+    );
     await practiceFormPage.verifySubjects(testUser.subjects.join(", "));
     await practiceFormPage.verifyHobbies(testUser.hobbies.join(", "));
-    await practiceFormPage.verifyPicture('Test-Logo.svg.png');
+    await practiceFormPage.verifyPicture(FILES.uploadFile);
     await practiceFormPage.verifyStateAndCity(testUser.state, testUser.city);
   });
 });

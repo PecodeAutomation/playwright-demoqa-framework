@@ -1,14 +1,14 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { BasePage } from "../BasePage";
 
-export class BrokenLinksImagesPage {
-  private readonly page: Page;
+export class BrokenLinksImagesPage extends BasePage {
   private readonly validImage: Locator;
   private readonly brokenImage: Locator;
   private readonly validLink: Locator;
   private readonly brokenLink: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.validImage = page.locator('img[src="/images/Toolsqa.jpg"]').last();
     this.brokenImage = page.locator('img[src="/images/Toolsqa_1.jpg"]');
     this.validLink = page.locator('a[href="http://demoqa.com"]');

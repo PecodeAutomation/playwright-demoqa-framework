@@ -1,13 +1,13 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { BasePage } from "../BasePage";
 
-export class DynamicPropertiesPage {
-  private readonly page: Page;
+export class DynamicPropertiesPage extends BasePage{
   private readonly enableAfterBtn: Locator;
   private readonly colorChangeBtn: Locator;
   private readonly visibleAfterBtn: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.enableAfterBtn = page.locator("#enableAfter");
     this.colorChangeBtn = page.locator("#colorChange");
     this.visibleAfterBtn = page.locator("#visibleAfter");
@@ -15,7 +15,7 @@ export class DynamicPropertiesPage {
 
   async verifyButtonBecomesEnabled() {
     await expect(this.enableAfterBtn).toBeDisabled();
-    await this.enableAfterBtn.waitFor({ state: "attached", timeout: 6000 });
+    await this.enableAfterBtn.waitFor({ state: "attached", timeout: 7000 });
     await expect(this.enableAfterBtn).toBeEnabled();
     return this.enableAfterBtn;
   }

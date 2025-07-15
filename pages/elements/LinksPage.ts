@@ -1,15 +1,13 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { BasePage } from "../BasePage";
 
-export class LinksPage {
-  private readonly page: Page;
-
+export class LinksPage extends BasePage{
   private readonly homeLink: Locator;
   private readonly homeDynamicLink: Locator;
   private readonly apiResponseText: Locator;
 
   constructor(page: Page) {
-    this.page = page;
-
+    super(page);
     this.homeLink = page.locator("#simpleLink");
     this.homeDynamicLink = page.locator("#dynamicLink");
     this.apiResponseText = page.locator("#linkResponse");

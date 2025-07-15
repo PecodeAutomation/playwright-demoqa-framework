@@ -9,10 +9,10 @@ export class FormsNavigationService {
 
   async openPracticeForm(): Promise<PracticeFormPage> {
     await this.page.goto("");
-    const elementsGroup = new Accordion(this.page).getGroup(
+    const formsGroup = new Accordion(this.page).getGroup(
       NavigationGroups.FORMS
     );
-    await elementsGroup.navigateTo(Forms.PRACTICE_FORM);
+    await formsGroup.navigateTo(Forms.PRACTICE_FORM);
     return new PracticeFormPage(this.page);
   }
 }

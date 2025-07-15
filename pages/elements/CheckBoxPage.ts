@@ -1,13 +1,13 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { BasePage } from "../BasePage";
 
-export class CheckBoxPage {
-  private readonly page: Page;
+export class CheckBoxPage extends BasePage {
   private readonly expandToggle: Locator;
   private readonly collapseToggle: Locator;
   private readonly resultDiv: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.expandToggle = page.locator(".rct-icon-expand-close");
     this.collapseToggle = page.locator(".rct-icon-expand-open");
     this.resultDiv = page.locator("#result");

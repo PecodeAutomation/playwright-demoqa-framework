@@ -1,7 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { BasePage } from "../BasePage";
 
-export class RadioButtonPage {
-  private readonly page: Page;
+export class RadioButtonPage extends BasePage{
   private readonly yesRadio: Locator;
   private readonly impressiveRadio: Locator;
   private readonly noRadio: Locator;
@@ -9,7 +9,7 @@ export class RadioButtonPage {
   private readonly questionText: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.yesRadio = page.locator("#yesRadio ~ label");
     this.impressiveRadio = page.locator("#impressiveRadio ~ label");
     this.noRadio = page.locator("#noRadio ~ label");

@@ -9,3 +9,11 @@ export enum Elements {
   UPLOAD_AND_DOWNLOAD = "Upload and Download",
   DYNAMIC_PROPERTIES = "Dynamic Properties"
 }
+
+export enum Checkbox {
+  HOME = "Home",
+  DESKTOP = "Desktop",
+  NOTES = "Notes",
+  DOCUMENTS = "Documents",
+  DOWNLOADS = "Downloads",
+}

@@ -1,9 +1,9 @@
 import { expect, Locator, Page } from "@playwright/test";
 import * as fs from "fs";
 import * as path from "path";
+import { BasePage } from "../BasePage";
 
-export class UploadDownloadPage {
-  private readonly page: Page;
+export class UploadDownloadPage extends BasePage{
   private readonly downloadButton: Locator;
   private readonly uploadButton: Locator;
   private readonly uploadFilePath: Locator;
@@ -11,7 +11,7 @@ export class UploadDownloadPage {
   private readonly downloadsDir = path.join(__dirname, "../../downloads");
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.downloadButton = page.locator("#downloadButton");
     this.uploadButton = page.locator("#uploadFile");
     this.uploadFilePath = page.locator("#uploadedFilePath");
