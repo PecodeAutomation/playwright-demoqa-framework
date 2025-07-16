@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator } from "@playwright/test";
 
 export class ModalDialog {
   private readonly page: Page;
@@ -7,8 +7,8 @@ export class ModalDialog {
 
   constructor(page: Page) {
     this.page = page;
-    this.modalTitle = page.locator('.modal-title');
-    this.closeButton = page.locator('.modal-close-button');
+    this.modalTitle = page.locator(".modal-title");
+    this.closeButton = page.locator(".modal-close-button");
   }
 
   async getTitleText(): Promise<string> {

@@ -9,7 +9,7 @@ export interface TextBoxFormData {
   permanentAddress: string;
 }
 
-export class TextBoxPage extends BasePage{
+export class TextBoxPage extends BasePage {
   private nameValue: Locator;
   private emailValue: Locator;
   private currentAddressValue: Locator;

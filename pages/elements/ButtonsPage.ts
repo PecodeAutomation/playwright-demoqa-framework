@@ -1,7 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { BasePage } from "../BasePage";
 
-export class ButtonsPage extends BasePage{
+export class ButtonsPage extends BasePage {
   private readonly doubleClickButton: Locator;
   private readonly rightClickButton: Locator;
   private readonly clickMeButton: Locator;
@@ -13,7 +13,10 @@ export class ButtonsPage extends BasePage{
     super(page);
     this.doubleClickButton = page.locator("#doubleClickBtn");
     this.rightClickButton = page.locator("#rightClickBtn");
-    this.clickMeButton = page.getByRole('button', { name: 'Click Me', exact: true });
+    this.clickMeButton = page.getByRole("button", {
+      name: "Click Me",
+      exact: true,
+    });
     this.doubleClickMessage = page.locator("#doubleClickMessage");
     this.rightClickMessage = page.locator("#rightClickMessage");
     this.dynamicClickMessage = page.locator("#dynamicClickMessage");

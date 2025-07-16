@@ -1,7 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { BasePage } from "../BasePage";
 
-export class DynamicPropertiesPage extends BasePage{
+export class DynamicPropertiesPage extends BasePage {
   private readonly enableAfterBtn: Locator;
   private readonly colorChangeBtn: Locator;
   private readonly visibleAfterBtn: Locator;
@@ -21,26 +21,26 @@ export class DynamicPropertiesPage extends BasePage{
   }
 
   async verifyButtonColorChange() {
-  const initialColor = await this.colorChangeBtn.evaluate((el: Element) => {
-    return window.getComputedStyle(el).color;
-  });
+    const initialColor = await this.colorChangeBtn.evaluate((el: Element) => {
+      return window.getComputedStyle(el).color;
+    });
 
-  await this.page.waitForFunction(
-    ([btn, initialColor]) => {
-      const element = btn as Element;
-      const currentColor = window.getComputedStyle(element).color;
-      return currentColor !== initialColor;
-    },
-    [await this.colorChangeBtn.elementHandle(), initialColor] as const,
-    { timeout: 6000 }
-  );
+    await this.page.waitForFunction(
+      ([btn, initialColor]) => {
+        const element = btn as Element;
+        const currentColor = window.getComputedStyle(element).color;
+        return currentColor !== initialColor;
+      },
+      [await this.colorChangeBtn.elementHandle(), initialColor] as const,
+      { timeout: 6000 }
+    );
 
-  const finalColor = await this.colorChangeBtn.evaluate((el: Element) => {
-    return window.getComputedStyle(el).color;
-  });
+    const finalColor = await this.colorChangeBtn.evaluate((el: Element) => {
+      return window.getComputedStyle(el).color;
+    });
 
-  return { initialColor, finalColor };
-}
+    return { initialColor, finalColor };
+  }
 
   async verifyButtonAppears() {
     await expect(this.visibleAfterBtn).toBeHidden();

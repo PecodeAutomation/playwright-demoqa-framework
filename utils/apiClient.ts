@@ -1,4 +1,4 @@
-import { request, APIRequestContext } from '@playwright/test';
+import { request, APIRequestContext } from "@playwright/test";
 
 export class ApiClient {
   private static instance: APIRequestContext | null = null;
@@ -8,7 +8,7 @@ export class ApiClient {
       this.instance = await request.newContext({
         baseURL,
         extraHTTPHeaders: {
-          'Accept': 'application/json',
+          Accept: "application/json",
         },
       });
     }

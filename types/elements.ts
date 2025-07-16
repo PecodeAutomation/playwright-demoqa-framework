@@ -7,7 +7,7 @@ export enum Elements {
   LINKS = "Links",
   BROKEN_LINKS_IMAGES = "Broken Links - Images",
   UPLOAD_AND_DOWNLOAD = "Upload and Download",
-  DYNAMIC_PROPERTIES = "Dynamic Properties"
+  DYNAMIC_PROPERTIES = "Dynamic Properties",
 }
 
 export enum Checkbox {

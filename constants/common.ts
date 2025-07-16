@@ -16,3 +16,16 @@ export const FILES = Object.freeze({
   uploadFile: "Test-Logo.svg.png",
   downloadFile: "sampleFile.jpeg",
 });
+
+export const COLORS = Object.freeze({
+  red: "Red",
+  green: "Green",
+  blue: "Blue",
+  yellow: "Yellow",
+  purple: "Purple",
+  black: "Black",
+  white: "White",
+  voilet: "Voilet",
+  indigo: "Indigo",
+  magenta: "Magenta",
+});

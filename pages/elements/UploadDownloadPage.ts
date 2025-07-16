@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { BasePage } from "../BasePage";
 
-export class UploadDownloadPage extends BasePage{
+export class UploadDownloadPage extends BasePage {
   private readonly downloadButton: Locator;
   private readonly uploadButton: Locator;
   private readonly uploadFilePath: Locator;
@@ -22,38 +22,38 @@ export class UploadDownloadPage extends BasePage{
   }
 
   async downloadFile(timeout = 30000) {
-  try {
-    await this.downloadButton.waitFor({ state: "visible", timeout });
+    try {
+      await this.downloadButton.waitFor({ state: "visible", timeout });
 
-    const downloadPromise = this.page.waitForEvent("download", { timeout });
-    await this.downloadButton.click();
+      const downloadPromise = this.page.waitForEvent("download", { timeout });
+      await this.downloadButton.click();
 
-    const download = await downloadPromise;
-    const fileName = download.suggestedFilename();
-    const savePath = path.join(this.downloadsDir, fileName);
+      const download = await downloadPromise;
+      const fileName = download.suggestedFilename();
+      const savePath = path.join(this.downloadsDir, fileName);
 
-    if (!fs.existsSync(this.downloadsDir)) {
-      fs.mkdirSync(this.downloadsDir, { recursive: true });
+      if (!fs.existsSync(this.downloadsDir)) {
+        fs.mkdirSync(this.downloadsDir, { recursive: true });
+      }
+
+      await download.saveAs(savePath);
+      await this.page.waitForTimeout(1000);
+      if (!fs.existsSync(savePath)) {
+        throw new Error(`File was not saved to ${savePath}`);
+      }
+
+      return {
+        path: savePath,
+        name: fileName,
+        size: fs.statSync(savePath).size,
+      };
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Download failed: ${error.message}`);
+      }
+      throw new Error("Download failed: Unknown error");
     }
-
-    await download.saveAs(savePath);
-    await this.page.waitForTimeout(1000);
-    if (!fs.existsSync(savePath)) {
-      throw new Error(`File was not saved to ${savePath}`);
-    }
-
-    return {
-      path: savePath,
-      name: fileName,
-      size: fs.statSync(savePath).size,
-    };
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Download failed: ${error.message}`);
-    }
-    throw new Error('Download failed: Unknown error');
   }
-}
 
   async verifyDownloadedFile(expectedFileName: string) {
     const result = await this.downloadFile();

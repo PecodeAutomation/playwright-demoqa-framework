@@ -14,13 +14,17 @@ export class FramesPage extends BasePage {
   }
 
   async verifyFrame1Content() {
-    const frameHeading = this.frame1.getByRole("heading", { name: "This is a sample page" });
+    const frameHeading = this.frame1.getByRole("heading", {
+      name: "This is a sample page",
+    });
     await expect(frameHeading).toBeVisible();
     return await frameHeading.textContent();
   }
 
   async verifyFrame2Content() {
-    const frameHeading = this.frame2.getByRole("heading", { name: "This is a sample page" });
+    const frameHeading = this.frame2.getByRole("heading", {
+      name: "This is a sample page",
+    });
     await expect(frameHeading).toBeVisible();
     return await frameHeading.textContent();
   }

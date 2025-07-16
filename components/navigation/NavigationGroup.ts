@@ -11,10 +11,10 @@ export abstract class NavigationGroup {
   }
 
   async navigateTo(elementName: string) {
-  await this.expand();
-  await this.page
-    .getByRole('listitem')
-    .filter({ hasText: new RegExp(`^${elementName}$`) })
-    .click();
-}
+    await this.expand();
+    await this.page
+      .getByRole("listitem")
+      .filter({ hasText: new RegExp(`^${elementName}$`) })
+      .click();
+  }
 }

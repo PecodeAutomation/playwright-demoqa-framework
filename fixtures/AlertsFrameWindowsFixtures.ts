@@ -3,13 +3,16 @@ import { AlertsFrameWindowsNavigationService } from "../services/AlertsFrameWind
 import { BrowserWindowsPage } from "../pages/alertsFrameWindows/BrowserWindowsPage";
 import { AlertsPage } from "../pages/alertsFrameWindows/AlertsPage";
 import { FramesPage } from "../pages/alertsFrameWindows/FramesPage";
-
+import { NestedFramesPage } from "../pages/alertsFrameWindows/NestedFramesPage";
+import { ModalDialogsPage } from "../pages/alertsFrameWindows/ModalDialogsPage";
 
 export type PageFixtures = {
   alertsFrameWindowsNavigationService: AlertsFrameWindowsNavigationService;
   browserWindowsPage: BrowserWindowsPage;
   alertsPage: AlertsPage;
   framesPage: FramesPage;
+  nestedFramesPage: NestedFramesPage;
+  modalDialogsPage: ModalDialogsPage;
 };
 
 export const test = base.extend<PageFixtures>({
@@ -19,7 +22,8 @@ export const test = base.extend<PageFixtures>({
   },
 
   browserWindowsPage: async ({ alertsFrameWindowsNavigationService }, use) => {
-    const browserWindowsPage = await alertsFrameWindowsNavigationService.openBrowserWindows();
+    const browserWindowsPage =
+      await alertsFrameWindowsNavigationService.openBrowserWindows();
     await use(browserWindowsPage);
   },
 
@@ -31,5 +35,15 @@ export const test = base.extend<PageFixtures>({
   framesPage: async ({ alertsFrameWindowsNavigationService }, use) => {
     const framesPage = await alertsFrameWindowsNavigationService.openFrames();
     await use(framesPage);
+  },
+
+  nestedFramesPage: async ({ alertsFrameWindowsNavigationService }, use) => {
+    const nestedFramesPage = await alertsFrameWindowsNavigationService.openNestedFrames();
+    await use(nestedFramesPage);
+  },
+
+  modalDialogsPage: async ({ alertsFrameWindowsNavigationService }, use) => {
+    const modalDialogsPage = await alertsFrameWindowsNavigationService.openModalDialogs();
+    await use(modalDialogsPage);
   },
 });

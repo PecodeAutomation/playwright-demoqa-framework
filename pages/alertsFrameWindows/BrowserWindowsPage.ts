@@ -44,10 +44,10 @@ export class BrowserWindowsPage extends BasePage {
     ]);
 
     await newPage.waitForLoadState();
-    
+
     const bodyLocator = newPage.locator("body");
     await expect(bodyLocator).toContainText(text);
-    
+
     await newPage.close();
     return newPage;
   }

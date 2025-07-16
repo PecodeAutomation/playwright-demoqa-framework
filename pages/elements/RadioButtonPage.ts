@@ -1,7 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { BasePage } from "../BasePage";
 
-export class RadioButtonPage extends BasePage{
+export class RadioButtonPage extends BasePage {
   private readonly yesRadio: Locator;
   private readonly impressiveRadio: Locator;
   private readonly noRadio: Locator;

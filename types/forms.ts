@@ -1,3 +1,3 @@
 export enum Forms {
-  PRACTICE_FORM = "Practice Form"
+  PRACTICE_FORM = "Practice Form",
 }

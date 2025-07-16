@@ -111,7 +111,7 @@ export class FormComponent extends BasePage {
 
   async setDateOfBirth(dateString: string) {
     await this.dateOfBirthInput.fill(dateString);
-    await this.page.keyboard.press('Enter');
+    await this.page.keyboard.press("Enter");
   }
 
   async selectSubjects(subjects: string[]) {

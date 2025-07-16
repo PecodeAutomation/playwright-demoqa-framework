@@ -10,7 +10,6 @@ import { BrokenLinksImagesPage } from "../pages/elements/BrokenLinksImagesPage";
 import { UploadDownloadPage } from "../pages/elements/UploadDownloadPage";
 import { DynamicPropertiesPage } from "../pages/elements/DynamicPropertiesPage";
 
-
 export type PageFixtures = {
   elementsNavigationService: ElementsNavigationService;
   textBoxPage: TextBoxPage;
@@ -55,23 +54,26 @@ export const test = base.extend<PageFixtures>({
     await use(buttonsPage);
   },
 
-  linksPage: async ({ elementsNavigationService}, use) => {
+  linksPage: async ({ elementsNavigationService }, use) => {
     const linksPage = await elementsNavigationService.openLinks();
     await use(linksPage);
   },
 
-  brokenLinksImagesPage: async ({ elementsNavigationService}, use) => {
-    const brokenLinksImagesPage = await elementsNavigationService.openBrokenLinksImages();
+  brokenLinksImagesPage: async ({ elementsNavigationService }, use) => {
+    const brokenLinksImagesPage =
+      await elementsNavigationService.openBrokenLinksImages();
     await use(brokenLinksImagesPage);
   },
 
-  uploadDownloadPage: async ({ elementsNavigationService}, use) => {
-    const uploadDownloadPage = await elementsNavigationService.openUploadDownloadPage();
+  uploadDownloadPage: async ({ elementsNavigationService }, use) => {
+    const uploadDownloadPage =
+      await elementsNavigationService.openUploadDownloadPage();
     await use(uploadDownloadPage);
   },
 
-  dynamicPropertiesPage: async ({ elementsNavigationService}, use) => {
-    const dynamicPropertiesPage = await elementsNavigationService.openDynamicPropertiesPage();
+  dynamicPropertiesPage: async ({ elementsNavigationService }, use) => {
+    const dynamicPropertiesPage =
+      await elementsNavigationService.openDynamicPropertiesPage();
     await use(dynamicPropertiesPage);
-  }
+  },
 });

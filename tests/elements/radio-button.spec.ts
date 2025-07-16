@@ -1,11 +1,12 @@
 import { expect } from "@playwright/test";
 import { test } from "../../fixtures/ElementsFixtures";
+import { RADIO_BUTTON_MESSAGES } from "../../constants/messages/elements";
 
 test.describe("Elements - Radio Button page", () => {
   test('Positive: Select "Yes" radio button', async ({ radioButtonPage }) => {
     await radioButtonPage.selectYes();
     expect(await radioButtonPage.isYesSelected()).toBe(true);
-    await radioButtonPage.verifyResultText("Yes");
+    await radioButtonPage.verifyResultText(RADIO_BUTTON_MESSAGES.yes);
   });
 
   test('Positive: Select "Impressive" radio button', async ({
@@ -13,7 +14,7 @@ test.describe("Elements - Radio Button page", () => {
   }) => {
     await radioButtonPage.selectImpressive();
     expect(await radioButtonPage.isImpressiveSelected()).toBe(true);
-    await radioButtonPage.verifyResultText("Impressive");
+    await radioButtonPage.verifyResultText(RADIO_BUTTON_MESSAGES.impressive);
   });
 
   test('Negative: Try to select disabled "No" radio button', async ({

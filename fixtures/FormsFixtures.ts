@@ -2,7 +2,6 @@ import { test as base } from "@playwright/test";
 import { FormsNavigationService } from "../services/FormsNavigationService";
 import { PracticeFormPage } from "../pages/forms/PracticeFormPage";
 
-
 export type PageFixtures = {
   formsNavigationService: FormsNavigationService;
   practiceFormPage: PracticeFormPage;

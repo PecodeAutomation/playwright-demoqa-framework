@@ -1,3 +1,3 @@
 import { NavigationGroup } from "../NavigationGroup";
 
-export class ElementsGroup extends NavigationGroup {}
+export class WidgetsGroup extends NavigationGroup {}
