@@ -2,11 +2,13 @@ import { test as base } from "@playwright/test";
 import { WidgetsNavigationService } from "../services/WidgetsNavigationService";
 import { AccordianPage } from "../pages/widgets/AccordianPage";
 import { AutoCompletePage } from "../pages/widgets/AutoCompletePage";
+import { DatePickerPage } from "../pages/widgets/DatePickerPage";
 
 export type PageFixtures = {
   widgetsNavigationService: WidgetsNavigationService;
   accordianPage: AccordianPage;
   autoCompletePage: AutoCompletePage;
+  datePickerPage: DatePickerPage;
 };
 
 export const test = base.extend<PageFixtures>({
@@ -23,5 +25,10 @@ export const test = base.extend<PageFixtures>({
   autoCompletePage: async ({ widgetsNavigationService }, use) => {
     const autoCompletePage = await widgetsNavigationService.openAutoComplete();
     await use(autoCompletePage);
+  },
+
+  datePickerPage: async ({ widgetsNavigationService }, use) => {
+    const datePickerPage = await widgetsNavigationService.openDatePicker();
+    await use(datePickerPage);
   },
 });

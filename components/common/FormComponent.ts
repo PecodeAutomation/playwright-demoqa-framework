@@ -1,7 +1,7 @@
 import { Page, Locator, expect } from "@playwright/test";
-import { BasePage } from "../../pages/BasePage";
 
-export class FormComponent extends BasePage {
+export class FormComponent {
+  private readonly page: Page;
   private firstNameInput: Locator;
   private lastNameInput: Locator;
   private userNameInput: Locator;
@@ -14,18 +14,16 @@ export class FormComponent extends BasePage {
   private emailInput: Locator;
   private currentAddressField: Locator;
   private permanentAddressField: Locator;
-  private genderRadio: Locator;
   private mobileInput: Locator;
   private dateOfBirthInput: Locator;
   private subjectsInput: Locator;
-  private hobbiesCheckbox: Locator;
   private pictureUpload: Locator;
   private stateDropdown: Locator;
   private cityDropdown: Locator;
   private submitButton: Locator;
 
   constructor(page: Page) {
-    super(page);
+    this.page = page;
     this.firstNameInput = page.getByPlaceholder("First Name");
     this.lastNameInput = page.getByPlaceholder("Last Name");
     this.userNameInput = page.locator("#userName");
@@ -38,11 +36,9 @@ export class FormComponent extends BasePage {
     this.emailInput = page.getByPlaceholder("name@example.com");
     this.currentAddressField = page.getByPlaceholder("Current Address");
     this.permanentAddressField = page.locator("#permanentAddress");
-    this.genderRadio = page.locator(".custom-radio");
     this.mobileInput = page.locator("#userNumber");
     this.dateOfBirthInput = page.locator("#dateOfBirthInput");
     this.subjectsInput = page.locator("#subjectsInput");
-    this.hobbiesCheckbox = page.locator(".custom-checkbox");
     this.pictureUpload = page.locator("#uploadPicture");
     this.stateDropdown = page.locator("#state");
     this.cityDropdown = page.locator("#city");

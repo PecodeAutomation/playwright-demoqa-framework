@@ -1,15 +1,18 @@
-import { expect } from "@playwright/test";
 import { COLORS } from "../../constants/common";
 import { test } from "../../fixtures/WidgetsFixtures";
+import { AutoComplete } from "../../types/widgets";
 
 test.describe("Widgets - Auto Complete page", () => {
   test("Verify single color selection", async ({ autoCompletePage }) => {
+    await autoCompletePage.verifyBaseComponents();
     await autoCompletePage.typeSingleColor(COLORS.red);
     await autoCompletePage.verifySingleColor(COLORS.red);
   });
 
   test("Verify multiple color selection", async ({ autoCompletePage }) => {
     const colors = [COLORS.red, COLORS.green, COLORS.blue];
+
+    await autoCompletePage.verifyBaseComponents();
     await autoCompletePage.typeMultipleColors(colors);
     await autoCompletePage.verifyMultipleColors(colors);
   });
@@ -18,9 +21,10 @@ test.describe("Widgets - Auto Complete page", () => {
     autoCompletePage,
   }) => {
     const colors = [COLORS.red, COLORS.green, COLORS.blue];
-    await autoCompletePage.typeMultipleColors(colors);
 
-    await autoCompletePage.removeMultipleColor(1);
+    await autoCompletePage.verifyBaseComponents();
+    await autoCompletePage.typeMultipleColors(colors);
+    await autoCompletePage.removeMultipleColor(AutoComplete.FIRST_ELEMENT);
     await autoCompletePage.verifyMultipleColors([COLORS.red, COLORS.blue]);
   });
 
@@ -28,8 +32,9 @@ test.describe("Widgets - Auto Complete page", () => {
     autoCompletePage,
   }) => {
     const colors = [COLORS.red, COLORS.green, COLORS.blue];
-    await autoCompletePage.typeMultipleColors(colors);
 
+    await autoCompletePage.verifyBaseComponents();
+    await autoCompletePage.typeMultipleColors(colors);
     await autoCompletePage.clearMultipleInput();
     await autoCompletePage.verifyMultipleColors([]);
   });
@@ -37,6 +42,7 @@ test.describe("Widgets - Auto Complete page", () => {
   test("Verify suggestions appear when typing", async ({
     autoCompletePage,
   }) => {
+    await autoCompletePage.verifyBaseComponents();
     await autoCompletePage.typeSingleColor("re");
     await autoCompletePage.verifySingleColor(COLORS.red);
   });

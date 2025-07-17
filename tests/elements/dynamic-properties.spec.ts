@@ -5,17 +5,23 @@ test.describe("Elements - Dynamic Properties page", () => {
   test("Button becomes enabled after 5 seconds", async ({
     dynamicPropertiesPage,
   }) => {
+    await dynamicPropertiesPage.verifyBaseComponents();
+
     const button = await dynamicPropertiesPage.verifyButtonBecomesEnabled();
     await expect(button).toBeEnabled();
   });
 
   test("Button color changes", async ({ dynamicPropertiesPage }) => {
+    await dynamicPropertiesPage.verifyBaseComponents();
+
     const { initialColor, finalColor } =
       await dynamicPropertiesPage.verifyButtonColorChange();
     expect(initialColor).not.toBe(finalColor);
   });
 
   test("Button appears after 5 seconds", async ({ dynamicPropertiesPage }) => {
+    await dynamicPropertiesPage.verifyBaseComponents();
+    
     const button = await dynamicPropertiesPage.verifyButtonAppears();
     await expect(button).toBeVisible();
   });

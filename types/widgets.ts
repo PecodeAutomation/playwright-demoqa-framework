@@ -15,3 +15,7 @@ export enum Accordian {
   SECOND_SECTION = 2,
   THIRD_SECTION = 3,
 }
+
+export enum AutoComplete {
+  FIRST_ELEMENT = 1,
+}

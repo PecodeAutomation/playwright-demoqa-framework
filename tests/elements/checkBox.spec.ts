@@ -5,12 +5,14 @@ import { CheckboxState } from "../../constants/elements";
 
 test.describe("Elements - Checkbox page", () => {
   test("Select Home checkbox and verify", async ({ checkBoxPage }) => {
+    await checkBoxPage.verifyBaseComponents();
     await checkBoxPage.expandAll();
     await checkBoxPage.toggleCheckbox(Checkbox.HOME, CheckboxState.UNCHECKED);
     await checkBoxPage.verifySelectedItems(["home"]);
   });
 
   test("Select nested checkboxes", async ({ checkBoxPage }) => {
+    await checkBoxPage.verifyBaseComponents();
     await checkBoxPage.expandAll();
     await checkBoxPage.checkItem(Checkbox.HOME);
     await checkBoxPage.expandItem("desktop");
@@ -20,6 +22,7 @@ test.describe("Elements - Checkbox page", () => {
   });
 
   test("Toggle checkbox state", async ({ checkBoxPage }) => {
+    await checkBoxPage.verifyBaseComponents();
     await checkBoxPage.expandAll();
     expect(await checkBoxPage.isChecked(Checkbox.DESKTOP)).toBe(false);
 
@@ -31,6 +34,7 @@ test.describe("Elements - Checkbox page", () => {
   });
 
   test("Select multiple items", async ({ checkBoxPage }) => {
+    await checkBoxPage.verifyBaseComponents();
     await checkBoxPage.expandAll();
     await checkBoxPage.checkItems([
       Checkbox.DESKTOP,

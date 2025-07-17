@@ -4,10 +4,12 @@ import { Accordian } from "../../types/widgets";
 
 test.describe("Widgets - Accordian page", () => {
   test("Verify initial state of accordion", async ({ accordianPage }) => {
+    await accordianPage.verifyBaseComponents();
     await accordianPage.verifyInitialState();
   });
 
   test("Verify first section content", async ({ accordianPage }) => {
+    await accordianPage.verifyBaseComponents();
     await accordianPage.verifySectionContent(
       Accordian.FIRST_SECTION,
       ACCORDIAN_CONTENT.firstSection
@@ -17,6 +19,7 @@ test.describe("Widgets - Accordian page", () => {
   test("Verify second section can be expanded and contains correct text", async ({
     accordianPage,
   }) => {
+    await accordianPage.verifyBaseComponents();
     await accordianPage.verifySectionState(
       Accordian.SECOND_SECTION,
       ContentState.isNotVisible
@@ -35,6 +38,7 @@ test.describe("Widgets - Accordian page", () => {
   test("Verify third section can be expanded and contains correct text", async ({
     accordianPage,
   }) => {
+    await accordianPage.verifyBaseComponents();
     await accordianPage.verifySectionState(
       Accordian.THIRD_SECTION,
       ContentState.isNotVisible
@@ -53,6 +57,7 @@ test.describe("Widgets - Accordian page", () => {
   test("Verify accordion behavior - only one section expanded at a time", async ({
     accordianPage,
   }) => {
+    await accordianPage.verifyBaseComponents();
     await accordianPage.verifyInitialState();
 
     await accordianPage.toggleSection(Accordian.SECOND_SECTION);

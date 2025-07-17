@@ -19,6 +19,8 @@ test.describe("Elements - Web Tables page", () => {
   });
 
   test("Positive: Add new record to table", async ({ webTablesPage }) => {
+    await webTablesPage.verifyBaseComponents();
+
     const initialCount = await webTablesPage.getRowCount();
     await webTablesPage.addNewRecord(testData);
 
@@ -29,6 +31,7 @@ test.describe("Elements - Web Tables page", () => {
   });
 
   test("Positive: Edit existing record", async ({ webTablesPage }) => {
+    await webTablesPage.verifyBaseComponents();
     await webTablesPage.addNewRecord(testData);
 
     const updatedData: WebTablesFormUser = {
@@ -42,6 +45,7 @@ test.describe("Elements - Web Tables page", () => {
   });
 
   test("Positive: Delete record from table", async ({ webTablesPage }) => {
+    await webTablesPage.verifyBaseComponents();
     await webTablesPage.addNewRecord(testData);
     const countBeforeDelete = await webTablesPage.getRowCount();
 
@@ -52,14 +56,15 @@ test.describe("Elements - Web Tables page", () => {
   });
 
   test("Positive: Search for records", async ({ webTablesPage }) => {
+    await webTablesPage.verifyBaseComponents();
     await webTablesPage.addNewRecord(testData);
+
     const uniqueName = `Search_${Date.now()}`;
     const searchableData: WebTablesFormUser = {
       ...testData,
       firstName: uniqueName,
     };
     await webTablesPage.addNewRecord(searchableData);
-
     await webTablesPage.searchRecord(uniqueName);
 
     const foundRow = await webTablesPage.getRowData(0);
@@ -71,7 +76,8 @@ test.describe("Elements - Web Tables page", () => {
       ...testData,
       email: "invalid-email",
     };
-
+    
+    await webTablesPage.verifyBaseComponents();
     await webTablesPage.addNewRecord(invalidData);
     await webTablesPage.formComponent.verifyEmailError();
   });
@@ -86,7 +92,8 @@ test.describe("Elements - Web Tables page", () => {
       salary: "999999",
       department: "D".repeat(100),
     };
-
+     
+    await webTablesPage.verifyBaseComponents();
     await webTablesPage.addNewRecord(boundaryData);
     await webTablesPage.verifyRecordExists(boundaryData);
   });

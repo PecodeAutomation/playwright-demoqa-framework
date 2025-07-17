@@ -1,21 +1,18 @@
-import { Page, Locator } from "@playwright/test";
-import { BasePage } from "../../pages/BasePage";
+import { expect, Locator, Page } from "@playwright/test";
 
-export class HeaderComponent extends BasePage {
-  private logo: Locator;
-  private loginButton: Locator;
+export class HeaderComponent {
+  private readonly page: Page;
+  readonly logo: Locator;
+  readonly bannerImage: Locator;
 
   constructor(page: Page) {
-    super(page);
-    this.logo = page.locator('img[src="/images/Toolsqa.jpg"]');
-    this.loginButton = page.locator('button[id="login"]');
+    this.page = page;
+    this.logo = page.locator('header img');
+    this.bannerImage = page.locator('header img[src="/images/Toolsqa.jpg"]');
   }
 
-  async clickLogin() {
-    await this.loginButton.click();
-  }
-
-  async verifyMainLogo(): Promise<boolean> {
-    return await this.logo.isVisible();
+  async verifyComponent() {
+    await expect(this.logo).toBeVisible();
+    await expect(this.bannerImage).toBeVisible();
   }
 }

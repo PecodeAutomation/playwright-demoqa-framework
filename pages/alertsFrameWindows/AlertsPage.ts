@@ -9,6 +9,7 @@ export class AlertsPage extends BasePage {
   private readonly confirmResult: Locator;
   private readonly promptResult: Locator;
 
+
   constructor(page: Page) {
     super(page);
     this.simpleAlertButton = page.locator("#alertButton");

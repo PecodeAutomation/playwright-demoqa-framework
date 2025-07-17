@@ -5,6 +5,8 @@ import { BROWSER_WINDOWS_MESSAGES } from "../../constants/messages/alertFrameWin
 
 test.describe("Alerts, Frame & Windows - Browser Windows page", () => {
   test("Verify New Tab opens correctly", async ({ browserWindowsPage }) => {
+    await browserWindowsPage.verifyBaseComponents();
+    
     const newPage = await browserWindowsPage.verifyNewTabOpens(
       ENDPOINTS.sample
     );
@@ -12,6 +14,8 @@ test.describe("Alerts, Frame & Windows - Browser Windows page", () => {
   });
 
   test("Verify New Window opens correctly", async ({ browserWindowsPage }) => {
+    await browserWindowsPage.verifyBaseComponents();
+
     const newPage = await browserWindowsPage.verifyNewWindowOpens(
       ENDPOINTS.sample
     );
@@ -19,6 +23,8 @@ test.describe("Alerts, Frame & Windows - Browser Windows page", () => {
   });
 
   test("Verify New Window with Message", async ({ browserWindowsPage }) => {
+    await browserWindowsPage.verifyBaseComponents();
+
     const newPage = await browserWindowsPage.verifyNewWindowWithMessage(
       BROWSER_WINDOWS_MESSAGES.knowledgeIncreasesBySharing
     );
@@ -26,6 +32,7 @@ test.describe("Alerts, Frame & Windows - Browser Windows page", () => {
   });
 
   test("Verify all buttons work", async ({ browserWindowsPage }) => {
+    await browserWindowsPage.verifyBaseComponents();
     await browserWindowsPage.verifyNewTabOpens(ENDPOINTS.sample);
     await browserWindowsPage.verifyNewWindowOpens(ENDPOINTS.sample);
     await browserWindowsPage.verifyNewWindowWithMessage(

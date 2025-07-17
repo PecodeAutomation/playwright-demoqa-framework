@@ -4,6 +4,7 @@ import { RADIO_BUTTON_MESSAGES } from "../../constants/messages/elements";
 
 test.describe("Elements - Radio Button page", () => {
   test('Positive: Select "Yes" radio button', async ({ radioButtonPage }) => {
+    await radioButtonPage.verifyBaseComponents();
     await radioButtonPage.selectYes();
     expect(await radioButtonPage.isYesSelected()).toBe(true);
     await radioButtonPage.verifyResultText(RADIO_BUTTON_MESSAGES.yes);
@@ -12,6 +13,7 @@ test.describe("Elements - Radio Button page", () => {
   test('Positive: Select "Impressive" radio button', async ({
     radioButtonPage,
   }) => {
+    await radioButtonPage.verifyBaseComponents();
     await radioButtonPage.selectImpressive();
     expect(await radioButtonPage.isImpressiveSelected()).toBe(true);
     await radioButtonPage.verifyResultText(RADIO_BUTTON_MESSAGES.impressive);
@@ -20,6 +22,7 @@ test.describe("Elements - Radio Button page", () => {
   test('Negative: Try to select disabled "No" radio button', async ({
     radioButtonPage,
   }) => {
+    await radioButtonPage.verifyBaseComponents();
     expect(await radioButtonPage.isNoDisabled()).toBe(true);
 
     await radioButtonPage.trySelectNo();
@@ -29,6 +32,7 @@ test.describe("Elements - Radio Button page", () => {
   });
 
   test("Switching between options", async ({ radioButtonPage }) => {
+    await radioButtonPage.verifyBaseComponents();
     await radioButtonPage.selectYes();
     expect(await radioButtonPage.isYesSelected()).toBe(true);
 
@@ -42,6 +46,7 @@ test.describe("Elements - Radio Button page", () => {
   });
 
   test("Verify initial state", async ({ radioButtonPage }) => {
+    await radioButtonPage.verifyBaseComponents();
     await radioButtonPage.verifyQuestionText();
     expect(await radioButtonPage.isYesSelected()).toBe(false);
     expect(await radioButtonPage.isImpressiveSelected()).toBe(false);

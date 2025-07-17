@@ -4,16 +4,22 @@ import { FrameContent } from "../../types/alerts-frame-windows";
 
 test.describe("Alerts, Frame & Windows - Frames page", () => {
   test("Verify Frame 1 content", async ({ framesPage }) => {
+    await framesPage.verifyBaseComponents();
+
     const frameText = await framesPage.verifyFrame1Content();
     expect(frameText).toBe(FrameContent.FRAME_ONE_CONTENT);
   });
 
   test("Verify Frame 2 content", async ({ framesPage }) => {
+    await framesPage.verifyBaseComponents();
+
     const frameText = await framesPage.verifyFrame2Content();
     expect(frameText).toBe(FrameContent.FRAME_TWO_CONTENT);
   });
 
   test("Switch between frames and main page", async ({ framesPage }) => {
+    await framesPage.verifyBaseComponents();
+    
     const mainText = await framesPage.verifyMainPageContent();
     expect(mainText).toContain(FrameContent.MAIN_PAGE_CONTENT);
 

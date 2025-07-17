@@ -4,6 +4,7 @@ import { NavigationGroups } from "../types/navigation";
 import { Widgets } from "../types/widgets";
 import { AccordianPage } from "../pages/widgets/AccordianPage";
 import { AutoCompletePage } from "../pages/widgets/AutoCompletePage";
+import { DatePickerPage } from "../pages/widgets/DatePickerPage";
 
 export class WidgetsNavigationService {
   constructor(private page: Page) {}
@@ -24,5 +25,14 @@ export class WidgetsNavigationService {
     );
     await widgetsGroup.navigateTo(Widgets.AUTO_COMPLETE);
     return new AutoCompletePage(this.page);
+  }
+
+  async openDatePicker(): Promise<DatePickerPage> {
+    await this.page.goto("");
+    const widgetsGroup = new Accordion(this.page).getGroup(
+      NavigationGroups.WIDGETS
+    );
+    await widgetsGroup.navigateTo(Widgets.DATE_PICKER);
+    return new DatePickerPage(this.page);
   }
 }
