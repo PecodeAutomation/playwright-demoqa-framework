@@ -1,28 +1,20 @@
-import { expect } from "@playwright/test";
 import { test } from "../../fixtures/ElementsFixtures";
 
-test.describe("Elements - Dynamic Properties page", () => {
+test.describe("Dynamic Properties Functionality", () => {
   test("Button becomes enabled after 5 seconds", async ({
     dynamicPropertiesPage,
   }) => {
     await dynamicPropertiesPage.verifyBaseComponents();
-
-    const button = await dynamicPropertiesPage.verifyButtonBecomesEnabled();
-    await expect(button).toBeEnabled();
+    await dynamicPropertiesPage.verifyButtonBecomesEnabled();
   });
 
   test("Button color changes", async ({ dynamicPropertiesPage }) => {
     await dynamicPropertiesPage.verifyBaseComponents();
-
-    const { initialColor, finalColor } =
-      await dynamicPropertiesPage.verifyButtonColorChange();
-    expect(initialColor).not.toBe(finalColor);
+    await dynamicPropertiesPage.verifyButtonColorChange();
   });
 
   test("Button appears after 5 seconds", async ({ dynamicPropertiesPage }) => {
     await dynamicPropertiesPage.verifyBaseComponents();
-    
-    const button = await dynamicPropertiesPage.verifyButtonAppears();
-    await expect(button).toBeVisible();
+    await dynamicPropertiesPage.verifyButtonAppears();
   });
 });

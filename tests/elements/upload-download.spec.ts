@@ -1,7 +1,7 @@
 import { FILES } from "../../constants/common";
 import { test } from "../../fixtures/ElementsFixtures";
 
-test.describe("Elements - Upload and Download page", () => {
+test.describe("Upload and Download Functionality", () => {
   test.afterEach(async ({ uploadDownloadPage }) => {
     await uploadDownloadPage.clearDownloads();
   });

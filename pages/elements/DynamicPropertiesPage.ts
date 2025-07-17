@@ -14,37 +14,27 @@ export class DynamicPropertiesPage extends BasePage {
   }
 
   async verifyButtonBecomesEnabled() {
-    await expect(this.enableAfterBtn).toBeDisabled();
+    await this.assertButtonIsDisabled(this.enableAfterBtn);
     await this.enableAfterBtn.waitFor({ state: "attached", timeout: 7000 });
-    await expect(this.enableAfterBtn).toBeEnabled();
+    await this.assertButtonIsEnabled(this.enableAfterBtn);
     return this.enableAfterBtn;
   }
 
   async verifyButtonColorChange() {
-    const initialColor = await this.colorChangeBtn.evaluate((el: Element) => {
-      return window.getComputedStyle(el).color;
-    });
+    const initialColor = await this.getButtonColor(this.colorChangeBtn);
 
-    await this.page.waitForFunction(
-      ([btn, initialColor]) => {
-        const element = btn as Element;
-        const currentColor = window.getComputedStyle(element).color;
-        return currentColor !== initialColor;
-      },
-      [await this.colorChangeBtn.elementHandle(), initialColor] as const,
-      { timeout: 6000 }
-    );
+    await this.waitForColorChange(this.colorChangeBtn, initialColor);
 
-    const finalColor = await this.colorChangeBtn.evaluate((el: Element) => {
-      return window.getComputedStyle(el).color;
-    });
+    const finalColor = await this.getButtonColor(this.colorChangeBtn);
+    await this.assertColorChanged(initialColor, finalColor);
 
     return { initialColor, finalColor };
   }
 
   async verifyButtonAppears() {
-    await expect(this.visibleAfterBtn).toBeHidden();
+    await this.assertButtonIsHidden(this.visibleAfterBtn);
     await this.visibleAfterBtn.waitFor({ state: "visible", timeout: 6000 });
+    await this.assertButtonIsVisible(this.visibleAfterBtn);
     return this.visibleAfterBtn;
   }
 
@@ -58,5 +48,43 @@ export class DynamicPropertiesPage extends BasePage {
       colorChange,
       visibleButton,
     };
+  }
+
+  private async assertButtonIsEnabled(button: Locator) {
+    await expect(button).toBeEnabled();
+  }
+
+  private async assertButtonIsDisabled(button: Locator) {
+    await expect(button).toBeDisabled();
+  }
+
+  private async assertButtonIsVisible(button: Locator) {
+    await expect(button).toBeVisible();
+  }
+
+  private async assertButtonIsHidden(button: Locator) {
+    await expect(button).toBeHidden();
+  }
+
+  private async assertColorChanged(initialColor: string, finalColor: string) {
+    expect(initialColor).not.toBe(finalColor);
+  }
+
+  private async getButtonColor(button: Locator): Promise<string> {
+    return await button.evaluate((el: Element) => {
+      return window.getComputedStyle(el).color;
+    });
+  }
+
+  private async waitForColorChange(button: Locator, initialColor: string) {
+    await this.page.waitForFunction(
+      ([btn, initialColor]) => {
+        const element = btn as Element;
+        const currentColor = window.getComputedStyle(element).color;
+        return currentColor !== initialColor;
+      },
+      [await button.elementHandle(), initialColor] as const,
+      { timeout: 6000 }
+    );
   }
 }

@@ -1,28 +1,20 @@
-import { expect } from "@playwright/test";
 import { test } from "../../fixtures/AlertsFrameWindowsFixtures";
-import { NestedFramesContent } from "../../types/alerts-frame-windows";
 
-
-test.describe("Alerts, Frame & Windows - Nested Frames page", () => {
-  test("Verify parent frame content", async ({nestedFramesPage}) => {
+test.describe("Nested Frames Functionality", () => {
+  test("Parent frame contains correct content", async ({
+    nestedFramesPage,
+  }) => {
     await nestedFramesPage.verifyBaseComponents();
-
-    const text = await nestedFramesPage.verifyParentFrameText();
-    expect(text).toBe(NestedFramesContent.PARENT_CONTENT);
+    await nestedFramesPage.verifyParentFrameContent();
   });
 
-  test("Verify child frame content", async ({nestedFramesPage}) => {
+  test("Child frame contains correct content", async ({ nestedFramesPage }) => {
     await nestedFramesPage.verifyBaseComponents();
-
-    const text = await nestedFramesPage.verifyChildFrameText();
-    expect(text).toBe(NestedFramesContent.CHILD_CONTENT);
+    await nestedFramesPage.verifyChildFrameContent();
   });
 
-  test("Verify full hierarchy", async ({nestedFramesPage}) => {
+  test("Full frames hierarchy verification", async ({ nestedFramesPage }) => {
     await nestedFramesPage.verifyBaseComponents();
-    
-    const { parent, child } = await nestedFramesPage.verifyFramesHierarchy();
-    expect(parent).toBe(NestedFramesContent.PARENT_CONTENT);
-    expect(child).toBe(NestedFramesContent.CHILD_CONTENT);
+    await nestedFramesPage.verifyFullHierarchy();
   });
 });

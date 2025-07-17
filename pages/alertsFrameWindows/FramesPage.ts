@@ -1,36 +1,66 @@
-import { expect, FrameLocator, Locator, Page } from "@playwright/test";
+import { FrameLocator, Page } from "@playwright/test";
 import { BasePage } from "../BasePage";
+import { FrameContent } from "../../types/alerts-frame-windows";
 
 export class FramesPage extends BasePage {
-  private readonly frame1: FrameLocator;
-  private readonly frame2: FrameLocator;
-  private readonly framesHeading: Locator;
+  private readonly frame1 = this.page.frameLocator("#frame1");
+  private readonly frame2 = this.page.frameLocator("#frame2");
+  private readonly framesHeading = this.page
+    .locator("#framesWrapper div")
+    .first();
 
-  constructor(page: Page) {
-    super(page);
-    this.frame1 = page.frameLocator("#frame1");
-    this.frame2 = page.frameLocator("#frame2");
-    this.framesHeading = page.locator("#framesWrapper div").first();
+  async verifyAllFramesContent() {
+    const results = {
+      mainPage: await this.verifyMainPageContent(
+        FrameContent.MAIN_PAGE_CONTENT
+      ),
+      frame1: await this.verifyFrameContent(
+        this.frame1,
+        FrameContent.FRAME_ONE_CONTENT
+      ),
+      frame2: await this.verifyFrameContent(
+        this.frame2,
+        FrameContent.FRAME_TWO_CONTENT
+      ),
+    };
+    return results;
   }
 
-  async verifyFrame1Content() {
-    const frameHeading = this.frame1.getByRole("heading", {
+  async verifySingleFrame(
+    frame: "frame1" | "frame2",
+    expectedContent: string
+  ) {
+    const frameLocator = frame === "frame1" ? this.frame1 : this.frame2;
+    const content = await this.verifyFrameContent(
+      frameLocator,
+      expectedContent
+    );
+    return { content };
+  }
+
+  private async verifyFrameContent(
+    frame: FrameLocator,
+    expectedContent: string
+  ) {
+    const frameHeading = frame.getByRole("heading", {
       name: "This is a sample page",
     });
-    await expect(frameHeading).toBeVisible();
-    return await frameHeading.textContent();
+    const content = await frameHeading.textContent();
+    if (content !== expectedContent) {
+      throw new Error(
+        `Expected frame content to be '${expectedContent}', but got '${content}'`
+      );
+    }
+    return content;
   }
 
-  async verifyFrame2Content() {
-    const frameHeading = this.frame2.getByRole("heading", {
-      name: "This is a sample page",
-    });
-    await expect(frameHeading).toBeVisible();
-    return await frameHeading.textContent();
-  }
-
-  async verifyMainPageContent() {
-    await expect(this.framesHeading).toBeVisible();
-    return await this.framesHeading.textContent();
+  private async verifyMainPageContent(expectedContent: string) {
+    const content = await this.framesHeading.textContent();
+    if (!content?.includes(expectedContent)) {
+      throw new Error(
+        `Expected main page to contain '${expectedContent}', but got '${content}'`
+      );
+    }
+    return content;
   }
 }

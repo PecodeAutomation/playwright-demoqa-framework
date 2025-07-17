@@ -1,7 +1,7 @@
 import { test } from "../../fixtures/ElementsFixtures";
 import { UserDataFactory } from "../../fixtures/UserDataFactory";
 
-test.describe("Elements - Textbox page", () => {
+test.describe("Textbox Functionality", () => {
   test("Positive: Submit with positive data", async ({ textBoxPage }) => {
     const validUser = UserDataFactory.getRandomUser();
     const formData = {

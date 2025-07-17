@@ -77,6 +77,19 @@ export class CheckBoxPage extends BasePage {
     }
   }
 
+  async verifyCheckboxState(label: string, expectedState: boolean) {
+    const actualState = await this.isChecked(label);
+    expect(actualState).toBe(expectedState);
+  }
+
+  async verifyCheckboxToggled(label: string, initialState: boolean) {
+    await this.verifyCheckboxState(label, initialState);
+    await this.toggleCheckbox(label, !initialState);
+    await this.verifyCheckboxState(label, !initialState);
+    await this.toggleCheckbox(label, initialState);
+    await this.verifyCheckboxState(label, initialState);
+  }
+
   async getSelectedItems(): Promise<string[]> {
     const resultText = (await this.resultDiv.textContent()) || "";
     const matches = resultText.match(/[a-z]+\n/gi) || [];

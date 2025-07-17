@@ -1,7 +1,7 @@
 import { LINKS, URL } from "../../constants/common";
 import { test } from "../../fixtures/ElementsFixtures";
 
-test.describe("Elements - Links page", () => {
+test.describe("Links Functionality", () => {
   test("Home link should open new tab", async ({ linksPage }) => {
     await linksPage.verifyBaseComponents();
     await linksPage.clickHomeLink();

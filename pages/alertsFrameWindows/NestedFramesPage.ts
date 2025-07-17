@@ -1,33 +1,42 @@
-import { expect, FrameLocator, Page } from "@playwright/test";
+import { FrameLocator, Page } from "@playwright/test";
 import { BasePage } from "../BasePage";
 import { NestedFramesContent } from "../../types/alerts-frame-windows";
 
 export class NestedFramesPage extends BasePage {
-  private readonly mainFrame: FrameLocator;
-  private readonly childFrame: FrameLocator;
+  private readonly mainFrame = this.page.frameLocator("#frame1");
+  private readonly childFrame = this.mainFrame.frameLocator(
+    'iframe[srcdoc="<p>Child Iframe</p>"]'
+  );
 
-  constructor(page: Page) {
-    super(page);
-    this.mainFrame = page.frameLocator("#frame1");
-    this.childFrame = this.mainFrame.frameLocator('iframe[srcdoc="<p>Child Iframe</p>"]');
+  async verifyParentFrameContent() {
+    const content = await this.getFrameContent(this.mainFrame);
+    this.validateContent(content, NestedFramesContent.PARENT_CONTENT);
+    return content;
   }
 
-  async verifyParentFrameText() {
-    const parentText = await this.mainFrame.locator("body").textContent();
-    expect(parentText?.trim()).toBe(NestedFramesContent.PARENT_CONTENT);
-    return parentText;
+  async verifyChildFrameContent() {
+    const content = await this.getFrameContent(this.childFrame);
+    this.validateContent(content, NestedFramesContent.CHILD_CONTENT);
+    return content;
   }
 
-  async verifyChildFrameText() {
-    const childText = await this.childFrame.locator("body").textContent();
-    expect(childText?.trim()).toBe(NestedFramesContent.CHILD_CONTENT);
-    return childText;
-  }
-
-  async verifyFramesHierarchy() {
+  async verifyFullHierarchy() {
     return {
-      parent: await this.verifyParentFrameText(),
-      child: await this.verifyChildFrameText()
+      parent: await this.verifyParentFrameContent(),
+      child: await this.verifyChildFrameContent(),
     };
+  }
+
+  private async getFrameContent(frame: FrameLocator) {
+    const content = await frame.locator("body").textContent();
+    return content?.trim() ?? "";
+  }
+
+  private validateContent(actual: string, expected: string) {
+    if (actual !== expected) {
+      throw new Error(
+        `Expected frame content to be '${expected}', but got '${actual}'`
+      );
+    }
   }
 }

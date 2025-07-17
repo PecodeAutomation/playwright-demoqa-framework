@@ -29,19 +29,19 @@ export class RadioButtonPage extends BasePage {
     await this.noRadio.click({ force: true });
   }
 
-  async isYesSelected(): Promise<boolean> {
+  private async isYesSelected(): Promise<boolean> {
     return await this.yesRadio.isChecked();
   }
 
-  async isImpressiveSelected(): Promise<boolean> {
+  private async isImpressiveSelected(): Promise<boolean> {
     return await this.impressiveRadio.isChecked();
   }
 
-  async isNoSelected(): Promise<boolean> {
+  private async isNoSelected(): Promise<boolean> {
     return await this.noRadio.isChecked();
   }
 
-  async isNoDisabled(): Promise<boolean> {
+  private async isNoDisabled(): Promise<boolean> {
     return await this.noRadio.isDisabled();
   }
 
@@ -59,18 +59,45 @@ export class RadioButtonPage extends BasePage {
     await expect(this.resultText).toBeHidden();
   }
 
+  async assertYesSelected(shouldBeSelected: boolean = true) {
+    expect(await this.isYesSelected()).toBe(shouldBeSelected);
+  }
+
+  async assertImpressiveSelected(shouldBeSelected: boolean = true) {
+    expect(await this.isImpressiveSelected()).toBe(shouldBeSelected);
+  }
+
+  async assertNoSelected(shouldBeSelected: boolean = true) {
+    expect(await this.isNoSelected()).toBe(shouldBeSelected);
+  }
+
+  async assertNoDisabled(shouldBeDisabled: boolean = true) {
+    expect(await this.isNoDisabled()).toBe(shouldBeDisabled);
+  }
+
+  async assertInitialState() {
+    await this.assertYesSelected(false);
+    await this.assertImpressiveSelected(false);
+    await this.assertNoSelected(false);
+    await this.assertNoDisabled(true);
+    await this.verifyHiddenResultText();
+  }
+
   async selectAndVerify(option: "Yes" | "Impressive" | "No") {
     switch (option) {
       case "Yes":
         await this.selectYes();
+        await this.assertYesSelected();
         await this.verifyResultText("Yes");
         break;
       case "Impressive":
         await this.selectImpressive();
+        await this.assertImpressiveSelected();
         await this.verifyResultText("Impressive");
         break;
       case "No":
         await this.trySelectNo();
+        await this.assertNoSelected(false);
         await this.verifyHiddenResultText();
         break;
     }

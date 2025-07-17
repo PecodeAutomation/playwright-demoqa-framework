@@ -1,9 +1,8 @@
-import { expect } from "@playwright/test";
 import { test } from "../../fixtures/ElementsFixtures";
 import { Checkbox } from "../../types/elements";
 import { CheckboxState } from "../../constants/elements";
 
-test.describe("Elements - Checkbox page", () => {
+test.describe("Checkbox Functionality", () => {
   test("Select Home checkbox and verify", async ({ checkBoxPage }) => {
     await checkBoxPage.verifyBaseComponents();
     await checkBoxPage.expandAll();
@@ -16,7 +15,10 @@ test.describe("Elements - Checkbox page", () => {
     await checkBoxPage.expandAll();
     await checkBoxPage.checkItem(Checkbox.HOME);
     await checkBoxPage.expandItem("desktop");
-    await checkBoxPage.toggleCheckbox(Checkbox.DESKTOP, CheckboxState.UNCHECKED);
+    await checkBoxPage.toggleCheckbox(
+      Checkbox.DESKTOP,
+      CheckboxState.UNCHECKED
+    );
     await checkBoxPage.toggleCheckbox(Checkbox.NOTES, CheckboxState.UNCHECKED);
     await checkBoxPage.verifySelectedItems(["desktop", "notes"]);
   });
@@ -24,13 +26,10 @@ test.describe("Elements - Checkbox page", () => {
   test("Toggle checkbox state", async ({ checkBoxPage }) => {
     await checkBoxPage.verifyBaseComponents();
     await checkBoxPage.expandAll();
-    expect(await checkBoxPage.isChecked(Checkbox.DESKTOP)).toBe(false);
-
-    await checkBoxPage.toggleCheckbox(Checkbox.DESKTOP, CheckboxState.UNCHECKED);
-    expect(await checkBoxPage.isChecked(Checkbox.DESKTOP)).toBe(true);
-
-    await checkBoxPage.toggleCheckbox(Checkbox.DESKTOP, CheckboxState.CHECKED);
-    expect(await checkBoxPage.isChecked(Checkbox.DESKTOP)).toBe(false);
+    await checkBoxPage.verifyCheckboxToggled(
+      Checkbox.DESKTOP,
+      CheckboxState.CHECKED
+    );
   });
 
   test("Select multiple items", async ({ checkBoxPage }) => {

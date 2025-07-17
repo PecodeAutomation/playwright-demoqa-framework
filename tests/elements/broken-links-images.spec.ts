@@ -1,6 +1,6 @@
 import { test } from "../../fixtures/ElementsFixtures";
 
-test.describe("Elements - Broken Links/Images page", () => {
+test.describe("Broken Links/Images Functionality", () => {
   test("Verify images", async ({ brokenLinksImagesPage }) => {
     await brokenLinksImagesPage.verifyBaseComponents();
     await brokenLinksImagesPage.verifyImages();

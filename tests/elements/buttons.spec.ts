@@ -1,6 +1,6 @@
 import { test } from "../../fixtures/ElementsFixtures";
 
-test.describe("Elements - Buttons page", () => {
+test.describe("Buttons Functionality", () => {
   test("Double Click Button", async ({ buttonsPage }) => {
     await buttonsPage.verifyBaseComponents();
     await buttonsPage.doubleClickButtonAction();

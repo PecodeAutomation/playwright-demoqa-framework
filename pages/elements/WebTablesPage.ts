@@ -87,7 +87,31 @@ export class WebTablesPage extends BasePage {
       .click();
   }
 
-  async verifyRecordExists(
+  async assertRowCount(expectedCount: number): Promise<void> {
+    const actualCount = await this.getRowCount();
+    expect(actualCount).toBe(expectedCount);
+  }
+
+  async assertRowDataMatches(
+    rowIndex: number,
+    expectedData: PartialWebTablesFormData
+  ): Promise<void> {
+    const rowData = await this.getRowData(rowIndex);
+    this.assertPartialDataMatch(rowData, expectedData);
+  }
+
+  private assertPartialDataMatch(
+    actualData: WebTablesFormUser,
+    expectedData: PartialWebTablesFormData
+  ): void {
+    Object.entries(expectedData).forEach(([key, value]) => {
+      if (value !== undefined) {
+        expect(actualData[key as keyof WebTablesFormUser]).toBe(value);
+      }
+    });
+  }
+
+  async assertRecordExists(
     expectedData: PartialWebTablesFormData
   ): Promise<void> {
     const count = await this.getRowCount();
@@ -103,6 +127,20 @@ export class WebTablesPage extends BasePage {
     }
 
     expect(found).toBe(true);
+  }
+
+  async assertSearchResultsContain(searchTerm: string): Promise<void> {
+    const count = await this.getRowCount();
+    expect(count).toBeGreaterThan(0);
+
+    for (let i = 0; i < count; i++) {
+      const rowData = await this.getRowData(i);
+      expect(
+        Object.values(rowData).some((value) =>
+          value.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      ).toBe(true);
+    }
   }
 
   private matchPartialData(

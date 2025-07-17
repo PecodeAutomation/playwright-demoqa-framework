@@ -1,4 +1,5 @@
 export const RADIO_BUTTON_MESSAGES = Object.freeze({
   impressive: "Impressive",
-  yes: "Yes"
+  yes: "Yes",
+  no: "No"
 });

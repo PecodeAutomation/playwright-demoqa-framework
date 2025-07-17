@@ -2,7 +2,7 @@ import { Alerts, DIALOG_PROMPT } from "../../constants/alertsFrameWindows";
 import { ALERTS_MESSAGES } from "../../constants/messages/alertFrameWindows";
 import { test } from "../../fixtures/AlertsFrameWindowsFixtures";
 
-test.describe("Alerts, Frame & Windows - Alerts page", () => {
+test.describe("Alerts Functionality", () => {
   test("Verify simple alert", async ({ alertsPage }) => {
     await alertsPage.verifyBaseComponents();
     await alertsPage.triggerSimpleAlert();

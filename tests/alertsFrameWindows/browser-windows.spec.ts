@@ -1,41 +1,30 @@
-import { expect } from "@playwright/test";
-import { test } from "../../fixtures/AlertsFrameWindowsFixtures";
 import { ENDPOINTS } from "../../constants/endpoints";
 import { BROWSER_WINDOWS_MESSAGES } from "../../constants/messages/alertFrameWindows";
+import { test } from "../../fixtures/AlertsFrameWindowsFixtures";
 
-test.describe("Alerts, Frame & Windows - Browser Windows page", () => {
-  test("Verify New Tab opens correctly", async ({ browserWindowsPage }) => {
+test.describe("Browser Windows Functionality", () => {
+  test("New tab functionality", async ({ browserWindowsPage }) => {
     await browserWindowsPage.verifyBaseComponents();
-    
-    const newPage = await browserWindowsPage.verifyNewTabOpens(
-      ENDPOINTS.sample
-    );
-    expect(newPage.url()).toContain("sample");
+    await browserWindowsPage.verifyNewTab(ENDPOINTS.sample);
   });
 
-  test("Verify New Window opens correctly", async ({ browserWindowsPage }) => {
+  test("New window functionality", async ({ browserWindowsPage }) => {
     await browserWindowsPage.verifyBaseComponents();
-
-    const newPage = await browserWindowsPage.verifyNewWindowOpens(
-      ENDPOINTS.sample
-    );
-    expect(newPage.url()).toContain("sample");
+    await browserWindowsPage.verifyNewWindow(ENDPOINTS.sample);
   });
 
-  test("Verify New Window with Message", async ({ browserWindowsPage }) => {
+  test("Message window functionality", async ({ browserWindowsPage }) => {
     await browserWindowsPage.verifyBaseComponents();
-
-    const newPage = await browserWindowsPage.verifyNewWindowWithMessage(
+    await browserWindowsPage.verifyMessageWindowText(
       BROWSER_WINDOWS_MESSAGES.knowledgeIncreasesBySharing
     );
-    expect(newPage.url()).toBe("about:blank");
   });
 
-  test("Verify all buttons work", async ({ browserWindowsPage }) => {
+  test("All buttons functionality", async ({ browserWindowsPage }) => {
     await browserWindowsPage.verifyBaseComponents();
-    await browserWindowsPage.verifyNewTabOpens(ENDPOINTS.sample);
-    await browserWindowsPage.verifyNewWindowOpens(ENDPOINTS.sample);
-    await browserWindowsPage.verifyNewWindowWithMessage(
+    await browserWindowsPage.verifyAllButtons(
+      ENDPOINTS.sample,
+      ENDPOINTS.sample,
       BROWSER_WINDOWS_MESSAGES.knowledgeIncreasesBySharing
     );
   });

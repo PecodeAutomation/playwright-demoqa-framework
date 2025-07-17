@@ -1,9 +1,8 @@
-import { expect } from "@playwright/test";
 import { test } from "../../fixtures/ElementsFixtures";
 import { UserDataFactory } from "../../fixtures/UserDataFactory";
 import { WebTablesFormUser } from "../../types/interfaces/user";
 
-test.describe("Elements - Web Tables page", () => {
+test.describe("Web Tables Functionality", () => {
   let testData: WebTablesFormUser;
 
   test.beforeEach(async ({}) => {
@@ -20,14 +19,11 @@ test.describe("Elements - Web Tables page", () => {
 
   test("Positive: Add new record to table", async ({ webTablesPage }) => {
     await webTablesPage.verifyBaseComponents();
-
     const initialCount = await webTablesPage.getRowCount();
+    
     await webTablesPage.addNewRecord(testData);
-
-    const newCount = await webTablesPage.getRowCount();
-    expect(newCount).toBe(initialCount);
-
-    await webTablesPage.verifyRecordExists(testData);
+    await webTablesPage.assertRowCount(initialCount);
+    await webTablesPage.assertRecordExists(testData);
   });
 
   test("Positive: Edit existing record", async ({ webTablesPage }) => {
@@ -41,7 +37,7 @@ test.describe("Elements - Web Tables page", () => {
     };
 
     await webTablesPage.editRecord(0, updatedData);
-    await webTablesPage.verifyRecordExists(updatedData);
+    await webTablesPage.assertRecordExists(updatedData);
   });
 
   test("Positive: Delete record from table", async ({ webTablesPage }) => {
@@ -50,8 +46,7 @@ test.describe("Elements - Web Tables page", () => {
     const countBeforeDelete = await webTablesPage.getRowCount();
 
     await webTablesPage.deleteRecord(0);
-    expect(await webTablesPage.getRowCount()).toBe(countBeforeDelete);
-
+    await webTablesPage.assertRowCount(countBeforeDelete);
     await webTablesPage.searchRecord(testData.firstName);
   });
 
@@ -64,11 +59,10 @@ test.describe("Elements - Web Tables page", () => {
       ...testData,
       firstName: uniqueName,
     };
+    
     await webTablesPage.addNewRecord(searchableData);
     await webTablesPage.searchRecord(uniqueName);
-
-    const foundRow = await webTablesPage.getRowData(0);
-    expect(foundRow.firstName).toBe(uniqueName);
+    await webTablesPage.assertRowDataMatches(0, { firstName: uniqueName });
   });
 
   test("Negative: Add record with invalid email", async ({ webTablesPage }) => {
@@ -82,7 +76,6 @@ test.describe("Elements - Web Tables page", () => {
     await webTablesPage.formComponent.verifyEmailError();
   });
 
-  //XXX: Skipped due to test update
   test.skip("Boundary: Maximum field lengths", async ({ webTablesPage }) => {
     const boundaryData: WebTablesFormUser = {
       firstName: "A".repeat(100),
@@ -95,6 +88,6 @@ test.describe("Elements - Web Tables page", () => {
      
     await webTablesPage.verifyBaseComponents();
     await webTablesPage.addNewRecord(boundaryData);
-    await webTablesPage.verifyRecordExists(boundaryData);
+    await webTablesPage.assertRecordExists(boundaryData);
   });
 });
