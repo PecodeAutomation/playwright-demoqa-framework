@@ -5,6 +5,9 @@ import { AutoCompletePage } from "../pages/widgets/AutoCompletePage";
 import { DatePickerPage } from "../pages/widgets/DatePickerPage";
 import { SliderPage } from "../pages/widgets/SliderPage";
 import { ProgressBarPage } from "../pages/widgets/ProgressBarPage";
+import { TabsPage } from "../pages/widgets/TabsPage";
+import { ToolTipsPage } from "../pages/widgets/ToolTipsPage";
+import { MenuPage } from "../pages/widgets/MenuPage";
 
 export type PageFixtures = {
   widgetsNavigationService: WidgetsNavigationService;
@@ -13,6 +16,9 @@ export type PageFixtures = {
   datePickerPage: DatePickerPage;
   sliderPage: SliderPage;
   progressBarPage: ProgressBarPage;
+  tabsPage: TabsPage;
+  toolTipsPage: ToolTipsPage;
+  menuPage: MenuPage;
 };
 
 export const test = base.extend<PageFixtures>({
@@ -44,5 +50,20 @@ export const test = base.extend<PageFixtures>({
   progressBarPage: async ({ widgetsNavigationService }, use) => {
     const progressBarPage = await widgetsNavigationService.openProgressBar();
     await use(progressBarPage);
+  },
+
+  tabsPage: async ({ widgetsNavigationService }, use) => {
+    const tabsPage = await widgetsNavigationService.openTabs();
+    await use(tabsPage);
+  },
+
+  toolTipsPage: async ({ widgetsNavigationService }, use) => {
+    const toolTipsPage = await widgetsNavigationService.openToolTips();
+    await use(toolTipsPage);
+  },
+
+  menuPage: async ({ widgetsNavigationService }, use) => {
+    const menuPage = await widgetsNavigationService.openMenu();
+    await use(menuPage);
   },
 });

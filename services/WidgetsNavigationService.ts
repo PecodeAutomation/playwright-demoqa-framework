@@ -7,6 +7,9 @@ import { AutoCompletePage } from "../pages/widgets/AutoCompletePage";
 import { DatePickerPage } from "../pages/widgets/DatePickerPage";
 import { SliderPage } from "../pages/widgets/SliderPage";
 import { ProgressBarPage } from "../pages/widgets/ProgressBarPage";
+import { TabsPage } from "../pages/widgets/TabsPage";
+import { ToolTipsPage } from "../pages/widgets/ToolTipsPage";
+import { MenuPage } from "../pages/widgets/MenuPage";
 
 export class WidgetsNavigationService {
   constructor(private page: Page) {}
@@ -54,5 +57,32 @@ export class WidgetsNavigationService {
     );
     await widgetsGroup.navigateTo(Widgets.PROGRESS_BAR);
     return new ProgressBarPage(this.page);
+  }
+
+  async openTabs(): Promise<TabsPage> {
+    await this.page.goto("");
+    const widgetsGroup = new Accordion(this.page).getGroup(
+      NavigationGroups.WIDGETS
+    );
+    await widgetsGroup.navigateTo(Widgets.TABS);
+    return new TabsPage(this.page);
+  }
+
+  async openToolTips(): Promise<ToolTipsPage> {
+    await this.page.goto("");
+    const widgetsGroup = new Accordion(this.page).getGroup(
+      NavigationGroups.WIDGETS
+    );
+    await widgetsGroup.navigateTo(Widgets.TOOL_TIPS);
+    return new ToolTipsPage(this.page);
+  }
+
+  async openMenu(): Promise<MenuPage> {
+    await this.page.goto("");
+    const widgetsGroup = new Accordion(this.page).getGroup(
+      NavigationGroups.WIDGETS
+    );
+    await widgetsGroup.navigateTo(Widgets.MENU);
+    return new MenuPage(this.page);
   }
 }

@@ -3,15 +3,32 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "playwright test",
-    "test:ui": "playwright test --ui",
-    "test:elements": "playwright test tests/elements/",
-    "report": "playwright show-report",
-    "lint": "eslint . --ext .ts",
-    "format": "prettier --write .",
-    "lint:fix": "eslint --fix .",
-    "lint:check": "eslint ."
-  },
+  "test": "playwright test",
+  "test:ui": "playwright test --ui",
+  "test:report": "playwright show-report",
+  
+  "test:elements": "playwright test tests/elements/",
+  "test:elements:ui": "playwright test tests/elements/ --ui",
+  "test:elements:headed": "playwright test tests/elements/ --headed",
+  
+  "test:alerts": "playwright test tests/alertsFrameWindows/",
+  "test:alerts:ui": "playwright test tests/alertsFrameWindows/ --ui",
+  "test:alerts:headed": "playwright test tests/alertsFrameWindows/ --headed",
+  
+  "test:forms": "playwright test tests/forms/",
+  "test:forms:ui": "playwright test tests/forms/ --ui",
+  "test:forms:headed": "playwright test tests/forms/ --headed",
+  
+  "test:widgets": "playwright test tests/widgets/",
+  "test:widgets:ui": "playwright test tests/widgets/ --ui",
+  "test:widgets:headed": "playwright test tests/widgets/ --headed",
+  
+  "report": "playwright show-report",
+  "lint": "eslint . --ext .ts",
+  "format": "prettier --write .",
+  "lint:fix": "eslint --fix .",
+  "lint:check": "eslint ."
+},
   "keywords": [],
   "author": "",
   "license": "ISC",

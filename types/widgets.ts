@@ -19,3 +19,10 @@ export enum Accordian {
 export enum AutoComplete {
   FIRST_ELEMENT = 1,
 }
+
+export enum Tabs {
+  WHAT = "what",
+  ORIGIN = "origin",
+  USE = "use",
+  MORE = "more",
+}

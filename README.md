@@ -49,3 +49,48 @@ Push to main branch
 Pull requests to main branch
 
 HTML report is available as build artifact.
+
+## Test Scripts
+
+### General Commands
+|          Command      |        Description             |
+|-----------------------|--------------------------------|
+| `npm test`            | Run all tests in headless mode |
+| `npm run test:ui`     | Run all tests in UI mode       |
+| `npm run test:report` | Open last test report          |
+
+### Category-Specific Commands
+#### Elements Tests
+```bash
+npm run test:elements          # Run all elements tests
+npm run test:elements:ui       # Run in UI mode
+npm run test:elements:headed   # Run in headed browser
+```
+
+#### Alerts, Frame & Windows Tests
+```bash
+npm run test:alerts            # Run all alerts/frame/windows tests
+npm run test:alerts:ui         # Run in UI mode
+npm run test:alerts:headed     # Run in headed browser
+```
+
+#### Forms Tests
+```bash
+npm run test:forms             # Run all forms tests
+npm run test:forms:ui          # Run in UI mode
+npm run test:forms:headed      # Run in headed browser
+```
+
+#### Widgets Tests
+```bash
+npm run test:widgets           # Run all widgets tests
+npm run test:widgets:ui        # Run in UI mode
+npm run test:widgets:headed    # Run in headed browser
+```
+
+### Code Quality
+```bash
+npm run lint       # Check code style
+npm run lint:fix   # Auto-fix lint issues
+npm run format     # Format code with Prettier
+```
