@@ -7,21 +7,25 @@
   "test:ui": "playwright test --ui",
   "test:report": "playwright show-report",
   
-  "test:elements": "playwright test tests/elements/",
-  "test:elements:ui": "playwright test tests/elements/ --ui",
-  "test:elements:headed": "playwright test tests/elements/ --headed",
+  "test:elements": "playwright test tests/elements/ --project=chromium",
+  "test:elements:ui": "playwright test tests/elements/ --project=chromium --ui",
+  "test:elements:headed": "playwright test tests/elements/ --project=chromium --headed",
   
-  "test:alerts": "playwright test tests/alertsFrameWindows/",
-  "test:alerts:ui": "playwright test tests/alertsFrameWindows/ --ui",
-  "test:alerts:headed": "playwright test tests/alertsFrameWindows/ --headed",
+  "test:alerts": "playwright test tests/alertsFrameWindows/ --project=chromium",
+  "test:alerts:ui": "playwright test tests/alertsFrameWindows/ --project=chromium --ui",
+  "test:alerts:headed": "playwright test tests/alertsFrameWindows/ --project=chromium --headed",
   
-  "test:forms": "playwright test tests/forms/",
-  "test:forms:ui": "playwright test tests/forms/ --ui",
-  "test:forms:headed": "playwright test tests/forms/ --headed",
+  "test:forms": "playwright test tests/forms/ --project=chromium",
+  "test:forms:ui": "playwright test tests/forms/ --project=chromium --ui",
+  "test:forms:headed": "playwright test tests/forms/ --project=chromium --headed",
   
-  "test:widgets": "playwright test tests/widgets/",
-  "test:widgets:ui": "playwright test tests/widgets/ --ui",
-  "test:widgets:headed": "playwright test tests/widgets/ --headed",
+  "test:widgets": "playwright test tests/widgets/ --project=chromium",
+  "test:widgets:ui": "playwright test tests/widgets/ --project=chromium --ui",
+  "test:widgets:headed": "playwright test tests/widgets/ --project=chromium --headed",
+
+  "test:mobile": "playwright test tests/mobile --project=mobile",
+  "test:mobile:ui": "playwright test tests/mobile  --project=mobile --ui",
+  "test:mobile:debug": "playwright test tests/mobile --project=mobile --debug",
   
   "report": "playwright show-report",
   "lint": "eslint . --ext .ts",

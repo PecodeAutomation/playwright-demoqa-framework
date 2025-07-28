@@ -3,8 +3,10 @@ import { test } from "../../fixtures/WidgetsFixtures";
 import { Tabs } from "../../types/widgets";
 
 test.describe("Tabs Functionality", () => {
-  test("Should switch between What and Origin tabs", async ({ tabsPage }) => {
+  test.beforeEach(async ({ tabsPage }) => {
     await tabsPage.verifyBaseComponents();
+  });
+  test("Should switch between What and Origin tabs", async ({ tabsPage }) => {
     await tabsPage.verifyTabIsActive(Tabs.WHAT);
     await tabsPage.verifyTabContentContains(Tabs.WHAT, TABS_CONTENT.whatTab);
 
@@ -17,14 +19,12 @@ test.describe("Tabs Functionality", () => {
   });
 
   test("Should switch to Use tab", async ({ tabsPage }) => {
-    await tabsPage.verifyBaseComponents();
     await tabsPage.switchToTab(Tabs.USE);
     await tabsPage.verifyTabIsActive(Tabs.USE);
     await tabsPage.verifyTabContentContains(Tabs.USE, TABS_CONTENT.useTab);
   });
 
   test("Should verify More tab is disabled", async ({ tabsPage }) => {
-    await tabsPage.verifyBaseComponents();
     await tabsPage.verifyTabIsDisabled(Tabs.MORE);
   });
 });

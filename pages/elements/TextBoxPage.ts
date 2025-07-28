@@ -14,6 +14,7 @@ export class TextBoxPage extends BasePage {
   private emailValue: Locator;
   private currentAddressValue: Locator;
   private permanentAddressValue: Locator;
+  private outputDiv: Locator;
   public formComponent: FormComponent;
 
   constructor(page: Page) {
@@ -22,15 +23,32 @@ export class TextBoxPage extends BasePage {
     this.emailValue = page.locator("#email");
     this.currentAddressValue = page.locator("#currentAddress").last();
     this.permanentAddressValue = page.locator("#permanentAddress").last();
+    this.outputDiv = page.locator("#output");
     this.formComponent = new FormComponent(page);
   }
 
   async verifyData(data: TextBoxFormData) {
+    await expect(this.outputDiv).toBeVisible();
     await expect(this.nameValue).toContainText(data.fullName);
     await expect(this.emailValue).toContainText(data.email);
     await expect(this.currentAddressValue).toContainText(data.currentAddress);
-    await expect(this.permanentAddressValue).toContainText(
-      data.permanentAddress
-    );
+    await expect(this.permanentAddressValue).toContainText(data.permanentAddress);
+  }
+
+  async verifyEmptyFormSubmission() {
+    await expect(this.outputDiv).not.toBeVisible();
+  }
+
+  async verifyMobileLayout() {
+    await expect(this.page).toHaveURL(/text-box/);
+    const viewportSize = this.page.viewportSize();
+    if (viewportSize && viewportSize.width < 768) {
+      await expect(this.page.getByPlaceholder("Full Name")).toHaveCSS('font-size', '16px');
+    }
+  }
+
+  async submitFormOnMobile() {
+    await this.page.locator("#submit").tap();
+    await this.page.waitForTimeout(500);
   }
 }

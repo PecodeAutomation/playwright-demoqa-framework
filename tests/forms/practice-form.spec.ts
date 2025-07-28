@@ -4,10 +4,12 @@ import { UserDataFactory } from "../../fixtures/UserDataFactory";
 import { FILES } from "../../constants/common";
 
 test.describe("Practice Form Functionality", () => {
+  test.beforeEach(async ({ practiceFormPage }) => {
+    await practiceFormPage.verifyBaseComponents();
+  });
   test("Submit minimal valid form", async ({ practiceFormPage }) => {
     const testUser = UserDataFactory.getMinimalPracticeFormUser();
 
-    await practiceFormPage.verifyBaseComponents();
     await practiceFormPage.formComponent.fillFirstName(testUser.firstName);
     await practiceFormPage.formComponent.fillLastName(testUser.lastName);
     await practiceFormPage.formComponent.selectGender(testUser.gender);
@@ -25,7 +27,6 @@ test.describe("Practice Form Functionality", () => {
     const testUser = UserDataFactory.getRandomPracticeFormUser();
     const dateOfBirth = dayjs().subtract(18, "year").format("DD MMMM, YYYY");
 
-    await practiceFormPage.verifyBaseComponents();
     await practiceFormPage.formComponent.fillFirstName(testUser.firstName);
     await practiceFormPage.formComponent.fillLastName(testUser.lastName);
     await practiceFormPage.formComponent.fillEmail(testUser.email);

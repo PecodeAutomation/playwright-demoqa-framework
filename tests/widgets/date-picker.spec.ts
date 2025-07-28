@@ -3,6 +3,9 @@ import { MONTHS } from "../../constants/datePicker";
 import { getFormattedDate, roundTimeToNearest } from "../../utils/dateHelper";
 
 test.describe("Date Picker Functionality", () => {
+  test.beforeEach(async ({ datePickerPage }) => {
+    await datePickerPage.verifyBaseComponents();
+  });
   test("Verify today's date selection", async ({ datePickerPage }) => {
     const today = new Date();
     const day = today.getDate();
@@ -10,7 +13,6 @@ test.describe("Date Picker Functionality", () => {
     const year = today.getFullYear().toString();
     const expectedDate = getFormattedDate(today, "simple");
 
-    await datePickerPage.verifyBaseComponents();
     await datePickerPage.selectSimpleDate(day, month, year);
     await datePickerPage.verifySimpleDate(expectedDate);
   });
@@ -23,7 +25,6 @@ test.describe("Date Picker Functionality", () => {
     const year = futureDate.getFullYear().toString();
     const expectedDate = getFormattedDate(futureDate, "simple");
 
-    await datePickerPage.verifyBaseComponents();
     await datePickerPage.selectSimpleDate(day, month, year);
     await datePickerPage.verifySimpleDate(expectedDate);
   });
@@ -34,7 +35,6 @@ test.describe("Date Picker Functionality", () => {
     const expectedTime = roundTimeToNearest(now);
     const expectedDateTime = `${datePart} ${expectedTime}`;
 
-    await datePickerPage.verifyBaseComponents();
     await datePickerPage.selectDateTimeWithTime(
       datePart,
       now.getHours(),
@@ -51,7 +51,6 @@ test.describe("Date Picker Functionality", () => {
     const roundedTime = roundTimeToNearest(futureTime);
     const expectedDateTime = `${datePart} ${roundedTime}`;
 
-    await datePickerPage.verifyBaseComponents();
     await datePickerPage.selectDateTimeWithTime(
       datePart,
       futureTime.getHours(),
@@ -68,7 +67,6 @@ test.describe("Date Picker Functionality", () => {
     const roundedTime = roundTimeToNearest(pastTime);
     const expectedDateTime = `${datePart} ${roundedTime}`;
 
-    await datePickerPage.verifyBaseComponents();
     await datePickerPage.selectDateTimeWithTime(
       datePart,
       pastTime.getHours(),

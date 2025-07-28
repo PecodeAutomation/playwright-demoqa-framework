@@ -2,14 +2,15 @@ import { test } from "../../fixtures/WidgetsFixtures";
 import { SelectMenu } from "../../types/widgets";
 
 test.describe("Select Menu Functionality", () => {
-  test("Should select standard option", async ({ selectMenuPage }) => {
+  test.beforeEach(async ({ selectMenuPage }) => {
     await selectMenuPage.verifyBaseComponents();
+  });
+  test("Should select standard option", async ({ selectMenuPage }) => {
     await selectMenuPage.selectStandardOption(SelectMenu.STANDARD_BLUE);
     await selectMenuPage.verifyStandardSelection(SelectMenu.STANDARD_BLUE);
   });
 
   test("Should select multiple options", async ({ selectMenuPage }) => {
-    await selectMenuPage.verifyBaseComponents();
     await selectMenuPage.selectMultipleOptions([
       SelectMenu.MULTI_VOLVO,
       SelectMenu.MULTI_AUDI,
@@ -21,14 +22,12 @@ test.describe("Select Menu Functionality", () => {
   });
 
   test("Should search and select custom option", async ({ selectMenuPage }) => {
-    await selectMenuPage.verifyBaseComponents();
     await selectMenuPage.openCustomSelect();
     await selectMenuPage.searchAndSelectOption("Prof", SelectMenu.CUSTOM_PROF);
     await selectMenuPage.verifyCustomSelection(SelectMenu.CUSTOM_PROF);
   });
 
   test("Should handle all select types", async ({ selectMenuPage }) => {
-    await selectMenuPage.verifyBaseComponents();
     await selectMenuPage.selectStandardOption(SelectMenu.STANDARD_GREEN);
     await selectMenuPage.selectMultipleOptions([
       SelectMenu.MULTI_SAAB,

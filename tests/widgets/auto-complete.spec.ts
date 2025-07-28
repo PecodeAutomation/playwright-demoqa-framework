@@ -3,8 +3,10 @@ import { test } from "../../fixtures/WidgetsFixtures";
 import { AutoComplete } from "../../types/widgets";
 
 test.describe("Auto Complete Functionality", () => {
-  test("Verify single color selection", async ({ autoCompletePage }) => {
+  test.beforeEach(async ({ autoCompletePage }) => {
     await autoCompletePage.verifyBaseComponents();
+  });
+  test("Verify single color selection", async ({ autoCompletePage }) => {
     await autoCompletePage.typeSingleColor(COLORS.red);
     await autoCompletePage.verifySingleColor(COLORS.red);
   });
@@ -12,7 +14,6 @@ test.describe("Auto Complete Functionality", () => {
   test("Verify multiple color selection", async ({ autoCompletePage }) => {
     const colors = [COLORS.red, COLORS.green, COLORS.blue];
 
-    await autoCompletePage.verifyBaseComponents();
     await autoCompletePage.typeMultipleColors(colors);
     await autoCompletePage.verifyMultipleColors(colors);
   });
@@ -22,7 +23,6 @@ test.describe("Auto Complete Functionality", () => {
   }) => {
     const colors = [COLORS.red, COLORS.green, COLORS.blue];
 
-    await autoCompletePage.verifyBaseComponents();
     await autoCompletePage.typeMultipleColors(colors);
     await autoCompletePage.removeMultipleColor(AutoComplete.FIRST_ELEMENT);
     await autoCompletePage.verifyMultipleColors([COLORS.red, COLORS.blue]);
@@ -33,7 +33,6 @@ test.describe("Auto Complete Functionality", () => {
   }) => {
     const colors = [COLORS.red, COLORS.green, COLORS.blue];
 
-    await autoCompletePage.verifyBaseComponents();
     await autoCompletePage.typeMultipleColors(colors);
     await autoCompletePage.clearMultipleInput();
     await autoCompletePage.verifyMultipleColors([]);
@@ -42,7 +41,6 @@ test.describe("Auto Complete Functionality", () => {
   test("Verify suggestions appear when typing", async ({
     autoCompletePage,
   }) => {
-    await autoCompletePage.verifyBaseComponents();
     await autoCompletePage.typeSingleColor("re");
     await autoCompletePage.verifySingleColor(COLORS.red);
   });

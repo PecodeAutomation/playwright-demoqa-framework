@@ -4,6 +4,9 @@ import { WebTablesFormUser } from "../../types/interfaces/user";
 
 test.describe("Web Tables Functionality", () => {
   let testData: WebTablesFormUser;
+  test.beforeEach(async ({ webTablesPage }) => {
+    await webTablesPage.verifyBaseComponents();
+  });
 
   test.beforeEach(async ({}) => {
     const user = UserDataFactory.getRandomUser();
@@ -18,16 +21,14 @@ test.describe("Web Tables Functionality", () => {
   });
 
   test("Positive: Add new record to table", async ({ webTablesPage }) => {
-    await webTablesPage.verifyBaseComponents();
     const initialCount = await webTablesPage.getRowCount();
-    
+
     await webTablesPage.addNewRecord(testData);
     await webTablesPage.assertRowCount(initialCount);
     await webTablesPage.assertRecordExists(testData);
   });
 
   test("Positive: Edit existing record", async ({ webTablesPage }) => {
-    await webTablesPage.verifyBaseComponents();
     await webTablesPage.addNewRecord(testData);
 
     const updatedData: WebTablesFormUser = {
@@ -41,7 +42,6 @@ test.describe("Web Tables Functionality", () => {
   });
 
   test("Positive: Delete record from table", async ({ webTablesPage }) => {
-    await webTablesPage.verifyBaseComponents();
     await webTablesPage.addNewRecord(testData);
     const countBeforeDelete = await webTablesPage.getRowCount();
 
@@ -51,7 +51,6 @@ test.describe("Web Tables Functionality", () => {
   });
 
   test("Positive: Search for records", async ({ webTablesPage }) => {
-    await webTablesPage.verifyBaseComponents();
     await webTablesPage.addNewRecord(testData);
 
     const uniqueName = `Search_${Date.now()}`;
@@ -59,7 +58,7 @@ test.describe("Web Tables Functionality", () => {
       ...testData,
       firstName: uniqueName,
     };
-    
+
     await webTablesPage.addNewRecord(searchableData);
     await webTablesPage.searchRecord(uniqueName);
     await webTablesPage.assertRowDataMatches(0, { firstName: uniqueName });
@@ -70,8 +69,7 @@ test.describe("Web Tables Functionality", () => {
       ...testData,
       email: "invalid-email",
     };
-    
-    await webTablesPage.verifyBaseComponents();
+
     await webTablesPage.addNewRecord(invalidData);
     await webTablesPage.formComponent.verifyEmailError();
   });
@@ -85,8 +83,7 @@ test.describe("Web Tables Functionality", () => {
       salary: "999999",
       department: "D".repeat(100),
     };
-     
-    await webTablesPage.verifyBaseComponents();
+
     await webTablesPage.addNewRecord(boundaryData);
     await webTablesPage.assertRecordExists(boundaryData);
   });

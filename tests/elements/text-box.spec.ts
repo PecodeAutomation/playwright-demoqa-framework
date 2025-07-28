@@ -2,6 +2,9 @@ import { test } from "../../fixtures/ElementsFixtures";
 import { UserDataFactory } from "../../fixtures/UserDataFactory";
 
 test.describe("Textbox Functionality", () => {
+  test.beforeEach(async ({ textBoxPage }) => {
+    await textBoxPage.verifyBaseComponents();
+  });
   test("Positive: Submit with positive data", async ({ textBoxPage }) => {
     const validUser = UserDataFactory.getRandomUser();
     const formData = {
@@ -11,7 +14,6 @@ test.describe("Textbox Functionality", () => {
       permanentAddress: validUser.address!,
     };
 
-    await textBoxPage.verifyBaseComponents();
     await textBoxPage.formComponent.fillFullName(formData.fullName);
     await textBoxPage.formComponent.fillEmail(formData.email);
     await textBoxPage.formComponent.fillCurrentAddress(formData.currentAddress);
@@ -25,7 +27,6 @@ test.describe("Textbox Functionality", () => {
   test("Negative: Submit with invalid email", async ({ textBoxPage }) => {
     const invalidUser = UserDataFactory.getInvalidUser();
 
-    await textBoxPage.verifyBaseComponents();
     await textBoxPage.formComponent.fillEmail(invalidUser.email);
     await textBoxPage.formComponent.clickSubmit();
 
@@ -34,7 +35,6 @@ test.describe("Textbox Functionality", () => {
 
   //XXX: Skipped due to validation implementation missing
   test.skip("Negative: Submit empty form", async ({ textBoxPage }) => {
-    await textBoxPage.verifyBaseComponents();
     await textBoxPage.formComponent.clickSubmit();
     await textBoxPage.formComponent.expectFieldsHighlighted();
   });
@@ -48,7 +48,6 @@ test.describe("Textbox Functionality", () => {
       permanentAddress: allowedLengthString,
     };
 
-    await textBoxPage.verifyBaseComponents();
     await textBoxPage.formComponent.fillFullName(formData.fullName);
     await textBoxPage.formComponent.fillEmail(formData.email);
     await textBoxPage.formComponent.fillCurrentAddress(formData.currentAddress);

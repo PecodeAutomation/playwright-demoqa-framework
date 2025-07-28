@@ -57,6 +57,23 @@ export class FormComponent {
     await this.passwordInput.fill(password);
   }
 
+  async fillForm(data: {
+  fullName: string;
+  email: string;
+  currentAddress: string;
+  permanentAddress: string;
+}) {
+  await this.fillFullName(data.fullName);
+  await this.fillEmail(data.email);
+  await this.fillCurrentAddress(data.currentAddress);
+  await this.fillPermanentAddress(data.permanentAddress);
+}
+
+async verifyMobileFormLayout() {
+  await expect(this.fullNameInput).toHaveCSS('padding', '10px');
+  await expect(this.submitButton).toHaveCSS('font-size', '16px');
+}
+
   async clickRegister() {
     await this.registerButton.click();
   }
