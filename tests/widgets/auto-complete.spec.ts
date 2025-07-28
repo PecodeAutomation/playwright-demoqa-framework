@@ -2,7 +2,7 @@ import { COLORS } from "../../constants/common";
 import { test } from "../../fixtures/WidgetsFixtures";
 import { AutoComplete } from "../../types/widgets";
 
-test.describe("Widgets - Auto Complete page", () => {
+test.describe("Auto Complete Functionality", () => {
   test("Verify single color selection", async ({ autoCompletePage }) => {
     await autoCompletePage.verifyBaseComponents();
     await autoCompletePage.typeSingleColor(COLORS.red);

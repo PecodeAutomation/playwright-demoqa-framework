@@ -8,6 +8,7 @@ import { ProgressBarPage } from "../pages/widgets/ProgressBarPage";
 import { TabsPage } from "../pages/widgets/TabsPage";
 import { ToolTipsPage } from "../pages/widgets/ToolTipsPage";
 import { MenuPage } from "../pages/widgets/MenuPage";
+import { SelectMenuPage } from "../pages/widgets/SelectMenuPage";
 
 export type PageFixtures = {
   widgetsNavigationService: WidgetsNavigationService;
@@ -19,6 +20,7 @@ export type PageFixtures = {
   tabsPage: TabsPage;
   toolTipsPage: ToolTipsPage;
   menuPage: MenuPage;
+  selectMenuPage: SelectMenuPage;
 };
 
 export const test = base.extend<PageFixtures>({
@@ -65,5 +67,10 @@ export const test = base.extend<PageFixtures>({
   menuPage: async ({ widgetsNavigationService }, use) => {
     const menuPage = await widgetsNavigationService.openMenu();
     await use(menuPage);
+  },
+
+  selectMenuPage: async ({ widgetsNavigationService }, use) => {
+    const selectMenuPage = await widgetsNavigationService.openSelectMenu();
+    await use(selectMenuPage);
   },
 });

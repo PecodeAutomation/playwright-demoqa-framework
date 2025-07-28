@@ -3,7 +3,7 @@ import { test } from "../../fixtures/FormsFixtures";
 import { UserDataFactory } from "../../fixtures/UserDataFactory";
 import { FILES } from "../../constants/common";
 
-test.describe("Forms - Practice Form page", () => {
+test.describe("Practice Form Functionality", () => {
   test("Submit minimal valid form", async ({ practiceFormPage }) => {
     const testUser = UserDataFactory.getMinimalPracticeFormUser();
 

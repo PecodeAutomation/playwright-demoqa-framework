@@ -10,6 +10,7 @@ import { ProgressBarPage } from "../pages/widgets/ProgressBarPage";
 import { TabsPage } from "../pages/widgets/TabsPage";
 import { ToolTipsPage } from "../pages/widgets/ToolTipsPage";
 import { MenuPage } from "../pages/widgets/MenuPage";
+import { SelectMenuPage } from "../pages/widgets/SelectMenuPage";
 
 export class WidgetsNavigationService {
   constructor(private page: Page) {}
@@ -84,5 +85,14 @@ export class WidgetsNavigationService {
     );
     await widgetsGroup.navigateTo(Widgets.MENU);
     return new MenuPage(this.page);
+  }
+
+  async openSelectMenu(): Promise<SelectMenuPage> {
+    await this.page.goto("");
+    const widgetsGroup = new Accordion(this.page).getGroup(
+      NavigationGroups.WIDGETS
+    );
+    await widgetsGroup.navigateTo(Widgets.SELECT_MENU);
+    return new SelectMenuPage(this.page);
   }
 }

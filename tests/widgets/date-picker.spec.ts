@@ -2,7 +2,7 @@ import { test } from "../../fixtures/WidgetsFixtures";
 import { MONTHS } from "../../constants/datePicker";
 import { getFormattedDate, roundTimeToNearest } from "../../utils/dateHelper";
 
-test.describe("Widgets - Date Picker page", () => {
+test.describe("Date Picker Functionality", () => {
   test("Verify today's date selection", async ({ datePickerPage }) => {
     const today = new Date();
     const day = today.getDate();

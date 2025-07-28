@@ -2,7 +2,7 @@ import { ACCORDIAN_CONTENT, ContentState } from "../../constants/widgets";
 import { test } from "../../fixtures/WidgetsFixtures";
 import { Accordian } from "../../types/widgets";
 
-test.describe("Widgets - Accordian page", () => {
+test.describe("Accordian Functionality", () => {
   test("Verify initial state of accordion", async ({ accordianPage }) => {
     await accordianPage.verifyBaseComponents();
     await accordianPage.verifyInitialState();
